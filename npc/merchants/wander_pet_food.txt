@@ -1,11 +1,11 @@
 //===== rAthena Script =======================================
 //= Spirit Liquor trader.
 //===== By: ==================================================
-//= rAthena dev team
+//= rAthena Dev Team
 //===== Current Version: =====================================
 //= 1.0
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= [Official Conversion]
 //= Trade Broken Liquor Jars and alcohol for wanderer

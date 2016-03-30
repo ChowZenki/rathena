@@ -3,9 +3,9 @@
 //===== By: ==================================================
 //= L0ne_W0lf, Muad_Dib
 //===== Current Version: =====================================
-//= 1.4a
+//= 1.6
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= Job change Quest from Knight / Lord Knight -> Rune Knight.
 //===== Additional Comments: =================================
@@ -16,6 +16,8 @@
 //= 1.3a Added 'npcskill' command. [Euphy]
 //= 1.4 Fixed a few bugs. [Euphy]
 //= 1.4a Moved Kafra to main file. [Euphy]
+//= 1.5 Added GM management function. [Euphy]
+//= 1.6 Added VIP features. [Euphy]
 //============================================================
 
 prt_in,162,24,3	script	Splendid-Looking Knight	470,2,2,{
@@ -77,6 +79,12 @@ prt_in,162,24,3	script	Splendid-Looking Knight	470,2,2,{
 					mes "Of course, I would only accept you if you are one hundred percent sure of your conviction to become a Rune Knight.";
 					close;
 				case 2:
+					if (VIP_SCRIPT) {
+						callfunc "VIP_Third_Class";
+						set job_rune_edq,1;
+						setquest 3200;
+						next;
+					}
 					mes "[Rune Knight Manuel]";
 					mes "You're sure now?";
 					mes "Let me send a dispatch to my comrades that you are willing to join our ranks.";
@@ -2135,12 +2143,11 @@ OnMyMobDead:
 	end;
 }
 
-/*
 sec_in02,34,167,3	script	R.Knight Job Manager	470,1,1,{
+	callfunc "F_GM_NPC";
 	mes "Enter the Password.";
 	next;
-	input .@inputstr$;
-	if (.@inputstr$ == "1854") {
+	if (callfunc("F_GM_NPC","1854",1) == 1) {
 		mes "Rune Knight Job Change Managing Module Start";
 		next;
 		switch(select("GlobalVar check:GlobalVar Oneshot Modification")) {
@@ -2157,4 +2164,3 @@ sec_in02,34,167,3	script	R.Knight Job Manager	470,1,1,{
 	close;
 }
 job3_rune01,1,1,3	duplicate(R.Knight Job Manager)	#renshucheck	844
-*/

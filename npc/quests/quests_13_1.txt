@@ -3,9 +3,9 @@
 //===== By: ================================================== 
 //= L0ne_W0lf
 //===== Current Version: ===================================== 
-//= 3.3a
+//= 3.5
 //===== Compatible With: ===================================== 
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= [Official Conversion]
 //= Contains Quests:
@@ -26,9 +26,11 @@
 //= 3.2 Updated ep13_start and dialog to match official script. [Joseph]
 //= 3.3 Updated to match the latest official script. [Euphy]
 //= 3.3a Added Izlude RE coordinates. [Euphy]
+//= 3.4 Added GM management function and NPC. [Euphy]
+//= 3.5 Updated turn-in requirements for Tripatriate Union's Feud. [Euphy]
 //============================================================ 
 
-// Onward to the New World
+// Onward to the New World :: ep13_gogo
 //============================================================ 
 function	script	Promotional_Staff	{
 	mes "[Promotional Staff]";
@@ -1921,23 +1923,25 @@ moc_ruins,137,89,5	script	Time-Space Gap Guard	707,{
 	close;
 }
 
-/*
 moc_fild22b,370,370,3	script	Allied Manager#gm	100,{
+	callfunc "F_GM_NPC";
 	mes "[Manager]";
 	mes "Please enter the password.";
 	next;
-	input .@input;
-	if ((.@input < 0) || (.@input > 9000) ) {
+	set .@i, callfunc("F_GM_NPC",8028,0,0,9000);
+	if (.@i == -2) {
 		mes "[Manager]";
 		mes "Incorrect password.";
 		close;
-	}
-	else if (.@input == 0) {
+	} else if (.@i == -1) {
 		mes "[Manager]";
 		mes "Please enter a password other then 0.";
 		close;
-	}
-	else if (.@input == 8028) {
+	} else if (.@i == 0) {
+		mes "[Manager]";
+		mes "Nevermind then.";
+		close;
+	} else {
 		mes "[Manager]";
 		mes "What would you like to do?";
 		next;
@@ -1954,15 +1958,9 @@ moc_fild22b,370,370,3	script	Allied Manager#gm	100,{
 			close;
 		}
 	}
-	else {
-		mes "[Manager]";
-		mes "Nevermind then.";
-		close;
-	}
 }
-*/
 
-// New Surroundings
+// New Surroundings :: ep13_newbs
 //============================================================ 
 mid_camp,222,283,4	script	Marian#ep13bs	727,{
 	if (checkweight(1201,1) == 0 || MaxWeight - Weight < 1000) {
@@ -2667,7 +2665,7 @@ mid_camp,261,284,4	script	Instructor#ep13bs	405,{
 			mes "Hehe, don't mention it.";
 			mes "And Otto said that he";
 			mes "would come to see you.";
-			emotion 40,1;
+			emotion e_shy,1;
 			next;
 			mes "[Instructor Lugen]";
 			mes "Did he?";
@@ -2939,7 +2937,7 @@ mid_camp,264,263,4	script	Diego#ep13bs	931,{
 		case 1:
 			mes "[Diego]";
 			mes "Thanks.";
-			emotion 15;
+			emotion e_thx;
 			next;
 			mes "["+ strcharinfo(0) +"]";
 			mes "What do you need?";
@@ -3203,12 +3201,12 @@ mid_camp,160,298,4	script	Jan#ep13bs	865,{
 			next;
 			mes "["+ strcharinfo(0) +"]";
 			mes "Yes...";
-			emotion 4,1;
+			emotion e_swt,1;
 			next;
 			mes "[Jan]";
 			mes "Ahhh, it's exciting~";
 			mes "I love it.";
-			emotion 38;
+			emotion e_awsm;
 			next;
 			mes "[Jan]";
 			mes "I want to unwrap it right now~";
@@ -3282,7 +3280,7 @@ mid_camp,30,168,4	script	Gerard#ep13bs	939,{
 			mes "I was considering";
 			mes "going back to the camp.";
 			mes "I really appreciate this.";
-			emotion 37;
+			emotion e_rice;
 			next;
 			mes "["+ strcharinfo(0) +"]";
 			mes "...";
@@ -3350,7 +3348,7 @@ man_fild01,80,248,4	script	Alberto#ep13bs	934,{
 			mes "I finally got it.";
 			mes "My coat...sniff.";
 			mes "It's freezing here.";
-			emotion 28;
+			emotion e_sob;
 			next;
 			mes "[Alberto]";
 			mes "Sniff...";
@@ -3390,7 +3388,7 @@ man_fild01,80,248,4	script	Alberto#ep13bs	934,{
 			mes "[Alberto]";
 			mes "It's so cold here~~";
 			mes "the wind chills me to the bones~";
-			emotion 28;
+			emotion e_sob;
 			close;
 		}
 	}
@@ -3438,7 +3436,7 @@ mid_camp,166,248,4	script	Sorcerer#ep13bs	937,{
 	next;
 	mes "[Biolay]";
 	mes "I want to go back to my house.";
-	emotion 28;
+	emotion e_sob;
 	close;
 }
 
@@ -3649,7 +3647,7 @@ mid_camp,267,258,0	script	Post#ep13bs2	111,{
 	}
 }
 
-// Attitude to the New
+// Attitude to the New :: ep13_ecology
 //============================================================ 
 mid_camp,188,254,3	script	Monster Scholar#ep13	883,{
 	if (ep13_ryu < 100 && ep13_start < 100) {
@@ -4339,7 +4337,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 		mes "Undiscovered life!";
 		mes "Everything about this world excites me.";
 		next;
-		emotion 14;
+		emotion e_lv2;
 		mes "[Botanist]";
 		mes "Oh, okay... Ah-hah!";
 		mes "This is how it goes...";
@@ -4352,7 +4350,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 			mes "Undiscovered life!";
 			mes "Everything about this world excites me.";
 			next;
-			emotion 14;
+			emotion e_lv2;
 			mes "[Botanist]";
 			mes "Oh, okay... Ah-hah!";
 			mes "This is how it goes...";
@@ -4363,7 +4361,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 			mes "Undiscovered life!";
 			mes "Everything about this world excites me.";
 			next;
-			emotion 14;
+			emotion e_lv2;
 			emotion e_dots,1;
 			mes "[Botanist]";
 			mes "Oh, okay... Ah-hah!";
@@ -4381,7 +4379,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 				next;
 				break;
 			case 2:
-				emotion 14,1;
+				emotion e_lv2,1;
 				mes "["+strcharinfo(0)+"]";
 				mes "I agree. There's so much to see around here!";
 				next;
@@ -4429,7 +4427,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 			mes "[Botanist]";
 			mes "Usually twins share the same feelings and ideas, I can see what he does or thinks if I try hard.";
 			next;
-			emotion 54;
+			emotion e_sigh;
 			mes "[Botanist]";
 			mes "Let me see what Rumis is doing right now... Oh, he's picking his nose with his left hand and eating a slice of bread with his right.";
 			mes "God, how disgusting!";
@@ -4449,7 +4447,7 @@ mid_camp,240,270,3	script	Botanist#ep13	750,{
 				next;
 				break;
 			case 2:
-				emotion 54;
+				emotion e_sigh;
 				mes "[Botanist]";
 				mes "Oh,";
 				mes "won't you cut me some slack? I was just joking to melt the ice.";
@@ -4980,7 +4978,7 @@ mid_camp,212,237,5	script	Camp Guard Captain#man1	852,{
 	}
 }
 
-// The Tripartite Union's Feud
+// The Tripartite Union's Feud :: ep13_1_rhea
 //============================================================ 
 mid_campin,376,120,0	script	Research Official#ep131	754,3,3,{
 OnTouch:
@@ -5951,7 +5949,7 @@ mid_camp,165,245,0	script	Ryosen#ep131_rhea01	748,{
 			mes "I heard you can get this thing from a monster named, 'Cornus' found in the fields.";
 			next;
 			mes "[Ryosen]";
-			mes "Or... do you have any ^0000ffMystic Horns^000000 with you? Of course, I'm not saying that I want it for free. If you'd give me 5 ^0000ff5 Mystic Horns^000000, I'd give you my Rune-Midgart's Strawberry Cake.";
+			mes "Or... do you have any ^0000ffMystic Horns^000000 with you? Of course, I'm not saying that I want it for free. If you'd give me ^0000ff2 Mystic Horns^000000, I'd give you my Rune-Midgart's Strawberry Cake.";
 			next;
 			switch(select("I haven't seen such a thing.:Oh, ok, I'll give you!")) {
 			case 1:
@@ -5982,7 +5980,7 @@ mid_camp,165,245,0	script	Ryosen#ep131_rhea01	748,{
 			mes "[Ryosen]";
 			mes "... Haha, I'm joking...";
 			next;
-			if (countitem(6023) > 4) {
+			if (countitem(6023) > 1) {
 				mes "[Ryosen]";
 				mes "Are you really, honestly, positively sure you want to exchange them for my cake?";
 				next;
@@ -6000,7 +5998,7 @@ mid_camp,165,245,0	script	Ryosen#ep131_rhea01	748,{
 				next;
 				mes "[Ryosen]";
 				mes "I heard you could extract some magical energy form Mystic Horns and use it. Anyway, thank you!";
-				delitem 6023,5; //Mystic_Horn
+				delitem 6023,2; //Mystic_Horn
 				getitem 12319,1; //Strawberry_Cake
 				close;
 			}
@@ -6348,7 +6346,7 @@ mid_camp,247,255,1	script	Hue#ep131_rhea02	868,{
 			next;
 			mes "[Hue]";
 			mes "Could you bring ^0000ffFur^000000 if you get some? I'm not asking it for free.";
-			mes "I'll give you my Pineapple Jubilee from Schwartzvalt, if you bring me ^0000ff5 Furs^000000.";
+			mes "I'll give you my Pineapple Jubilee from Schwartzvalt, if you bring me ^0000ff2 Furs^000000.";
 			next;
 			switch(select("I don't have any, right now.:Oh, I'll give you Fur.")) {
 			case 1:
@@ -6375,7 +6373,7 @@ mid_camp,247,255,1	script	Hue#ep131_rhea02	868,{
 			mes "[Hue]";
 			mes "Ah, are you sure you want to exchange?";
 			next;
-			if (countitem(6020) > 4) {
+			if (countitem(6020) > 1) {
 				mes "[Hue]";
 				mes "Oh, so it's the thing called, Fur??";
 				next;
@@ -6395,7 +6393,7 @@ mid_camp,247,255,1	script	Hue#ep131_rhea02	868,{
 				next;
 				mes "[Hue]";
 				mes "I always needed this because the weather here is colder then I expected. I'm sure this will keep me warm.";
-				delitem 6020,5; //Fur
+				delitem 6020,2; //Fur
 				getitem 12320,1; //Pineapple_Juice
 				close;
 			}
@@ -6811,7 +6809,7 @@ mid_camp,222,218,3	script	Hansenne#ep131_rhea03	931,{
 			next;
 			mes "[Hansenne]";
 			mes "Can you give me a ^0000ffPeaked Hat^000000 if you have any? I'm not asking for free.";
-			mes "For ^0000ff5 Peaked Hats^000000, I'll give you my special dessert!";
+			mes "For ^0000ff2 Peaked Hats^000000, I'll give you my special dessert!";
 			next;
 			switch(select("No way.:Sure.")) {
 			case 1:
@@ -6840,7 +6838,7 @@ mid_camp,222,218,3	script	Hansenne#ep131_rhea03	931,{
 			mes "[Hansenne]";
 			mes "Ah!!! You have it?";
 			next;
-			if (countitem(6021) > 4) {
+			if (countitem(6021) > 1) {
 				mes "[Hansenne]";
 				mes "Oh, you really have those!";
 				next;
@@ -6861,7 +6859,7 @@ mid_camp,222,218,3	script	Hansenne#ep131_rhea03	931,{
 				mes "Ehhmmm, thank you!";
 				mes "Geeeee, thank you!";
 				mes "Haha, hahaha, hahahahahahahahaha.";
-				delitem 6021,5; //Peaked_Hat
+				delitem 6021,2; //Peaked_Hat
 				getitem 12321,1; //Spicy_Sandwich
 				close;
 			}
@@ -6948,14 +6946,16 @@ OnTimer300000:
 	end;
 }
 
-// Part Time Work
+// Part Time Work :: ep13_alba
 //============================================================ 
 mid_camp,1,1,0	script	#timer_alba01	844,{
-	/*
+	callfunc "F_GM_NPC";
 	mes "Please enter the password";
 	next;
-	input .@input;
-	if (.@input == "1854") {
+	if (callfunc("F_GM_NPC",1854,0) < 1) {
+		mes "Wrong password.";
+		close;
+	} else {
 		mes "Current Status:";
 		if ($@PartTimeOn == 1) {
 			mes "Recruiting.";
@@ -6963,7 +6963,7 @@ mid_camp,1,1,0	script	#timer_alba01	844,{
 		else {
 			mes "Not Recruiting.";
 		}
-		mes "Recruited part-timers" + $@PartTimeSlots + "part-timers.";
+		mes "Recruited " + $@PartTimeSlots + " part-timers.";
 		mes "What do you want to do?";
 		next;
 		switch(select("Reset the recruiting.:Cancel.")) {
@@ -6985,12 +6985,6 @@ mid_camp,1,1,0	script	#timer_alba01	844,{
 			close;
 		}
 	}
-	else {
-		mes "Wrong password.";
-		close;
-	}
-	end;
-	*/
 
 OnInit:
 	set $@PartTimeOn,0;
@@ -7560,7 +7554,7 @@ OnMyMobDead:
 	end;
 }
 
-// Cat Hand Trading Post
+// Cat Hand Trading Post :: cat_yong
 //============================================================ 
 mid_camp,62,125,4	script	Cat Hand Agent	421,{
 function Catwarp;
@@ -7670,7 +7664,7 @@ function Catwarp;
 				close;
 			}
 			else if (Zeny >= 60) {
-				set zeny,zeny-60;
+				set Zeny, Zeny-60;
 				mes "[Cat Hand Agent]";
 				mes "Thank you.";
 				mes "Your storage will";
@@ -7717,7 +7711,7 @@ function Catwarp;
 				close;
 			}
 			else if (Zeny >= 60) {
-				set zeny,zeny-60;
+				set Zeny, Zeny-60;
 				mes "[Cat Hand Agent]";
 				mes "Thank you.";
 				mes "Your storage will";
@@ -7839,7 +7833,7 @@ function Catwarp;
 				close;
 			}
 			else if (Zeny >= 60) {
-				set zeny,zeny-60;
+				set Zeny, Zeny-60;
 				mes "[Cat Hand Agent]";
 				mes "Thank you.";
 				mes "Your storage will";
@@ -8473,7 +8467,22 @@ man_fild03,104,248,0	duplicate(manukrock)	Mysterious Rock#16	844
 man_fild03,91,272,0	duplicate(manukrock)	Mysterious Rock#17	844
 man_fild03,95,301,0	duplicate(manukrock)	Mysterious Rock#18	844
 
-// Report from the New World
+sec_in02,80,171,0	script	Piece of crack#sec	406,{
+	callfunc "F_GM_NPC";
+	mes "1~3000";
+	input .@input;
+	next;
+	if (.@input < 1 || .@input > 3000) {
+		mes "Cat trading Point adjust";
+		mes "You can enter the number between 1~3000.";
+		close;
+	} else {
+		set ep13_yong1,.@input;
+		close;
+	}
+}
+
+// Report from the New World :: ep13_1_edq
 //============================================================ 
 mid_campin,90,121,5	script	Hibba Agip	459,{
 	cutin "ep13_captin_edq",2;
@@ -8828,27 +8837,11 @@ mid_campin,90,121,5	script	Hibba Agip	459,{
 		cutin "ep13_captin_edq",255;
 		close;
 	}
-	else if ((ep13_1_edq == 9) && (countitem(11012) < 3)) {
+	else if (ep13_1_edq == 9) {
 		mes "[Hibba Agip]";
 		mes "Is something wrong? Alright, we'll write another report for you.";
 		next;
-		delitem 11012,1; //Expedition_Report
-		delitem 11012,1; //Expedition_Report
-		delitem 11012,1; //Expedition_Report
-		getitem 11012,3; //Expedition_Report
-		mes "[Hibba Agip]";
-		mes "Let me remind you again. The officials are these three people: ^0000FFMinister Laur^000000 of the Rune Midgarts Kingdom, ^0000FFPriest Nuria^000000 of Arunafeltz and ^0000FFGerhart^000000 of the Schwaltzvalt Republic.";
-		next;
-		mes "[Hibba Agip]";
-		mes "Make sure to deliver the report to them without fail. Come back in one piece, alright?";
-		cutin "ep13_captin_edq",255;
-		close;
-	}
-	else if ((ep13_1_edq == 9) && (countitem(11012) > 3)) {
-		mes "[Hibba Agip]";
-		mes "Is something wrong? Alright, we'll write another report for you.";
-		next;
-		delitem 11012,20; //Expedition_Report
+		delitem 11012,countitem(11012); //Expedition_Report
 		getitem 11012,3; //Expedition_Report
 		mes "[Hibba Agip]";
 		mes "Let me remind you again. The officials are these three people: ^0000FFMinister Laur^000000 of the Rune Midgarts Kingdom, ^0000FFPriest Nuria^000000 of Arunafeltz and ^0000FFGerhart^000000 of the Schwaltzvalt Republic.";
@@ -10354,7 +10347,6 @@ OnTimer600000:
 	end;
 
 OnMyMobDead:
-	set .@spl_fild03_mob_dead,mobcount("spl_fild03","ep13_spl_fild03_mon_edq::OnMyMobDead");
 	if (mobcount("spl_fild03","ep13_spl_fild03_mon_edq::OnMyMobDead") < 14 && (ep13_1_edq == 71 || ep13_1_edq == 72))
 		getitem 6040,1; //Some_Of_Report
 	end;
@@ -10420,7 +10412,7 @@ OnMyMobDead:
 	end;
 }
 
-// Persuing Rayan Moore
+// Persuing Rayan Moore :: ep13_moc2
 //============================================================ 
 mid_campin,68,185,3	script	Pursuit Party Leader#1	803,{
 	if (checkweight(714,3) == 0) {
@@ -12006,7 +11998,7 @@ OnTouch:
 
 que_job01,6,94,0	warp	morocc#01	2,2,morocc,45,103
 que_job01,17,48,0	warp	que_job01#02	2,2,que_job01,68,92
-que_job01,68,96,0	warp	que_job01#03	2,2,que_job01,17,53;
+que_job01,68,96,0	warp	que_job01#03	2,2,que_job01,17,53
 
 que_job01,82,95,3	script	Bar Master#moc2_01	46,{
 	if (checkweight(1201,1) == 0) {
@@ -12058,7 +12050,7 @@ que_job01,82,95,3	script	Bar Master#moc2_01	46,{
 						mes "Here, drink up.";
 						mes "This drink is mainly made of fruit juice,";
 						mes "but you still shouldn't drink too much.";
-						set zeny,zeny-800;
+						set Zeny, Zeny-800;
 						getitem 12112,1; //Tropical_Sograt
 					}
 					close;
@@ -12076,15 +12068,14 @@ que_job01,82,95,3	script	Bar Master#moc2_01	46,{
 						mes "There you go.";
 						mes "This drink is mainly made of fruit juice,";
 						mes "but you still shouldn't drink too much.";
-						set zeny,zeny-1000;
+						set Zeny, Zeny-1000;
 						getitem 12112,1; //Tropical_Sograt
 						close;
 					}
 				}
 			}
 		case 2:
-			set .@now_weight,MaxWeight-Weight;
-			if (.@now_weight < 2000) {
+			if (MaxWeight - Weight < 2000) {
 				mes "[Karred]";
 				mes "Are you sure you can even hold a glass of alcohol?";
 				mes "You're carrying too many things on you already.";
@@ -12103,7 +12094,7 @@ que_job01,82,95,3	script	Bar Master#moc2_01	46,{
 						mes "[Karred]";
 						mes "I'll give you a special discount.";
 						mes "Here, enjoy.";
-						set zeny,zeny-800;
+						set Zeny, Zeny-800;
 						getitem 12113,1; //Vermilion_The_Beach
 					}
 					close;
@@ -12120,7 +12111,7 @@ que_job01,82,95,3	script	Bar Master#moc2_01	46,{
 						mes "[Karred]";
 						mes "There you go.";
 						mes "Don't drink too much, alright?";
-						set zeny,zeny-1000;
+						set Zeny, Zeny-1000;
 						getitem 12113,1; //Vermilion_The_Beach
 						close;
 					}
@@ -12268,7 +12259,7 @@ OnTouch:
 					mes "Hey, bartender! Gimme";
 					mes "the usual! I like your";
 					mes "style, adventurer...";
-					set zeny,zeny-1000;
+					set Zeny, Zeny-1000;
 					next;
 					mes "[Litheron]";
 					mes "Alright, you can come";
@@ -12416,7 +12407,6 @@ que_job01,49,49,5	script	Tao#dan_09	877,{
 
 que_job01,51,55,0	script	que_job01#room_1	45,1,1,{
 OnInit:
-	if ($maobar_room) set $maobar_room,0;
 OnReset:
 	set $@moc_mao_room1,0; //Global Variable
 	end;
@@ -12669,7 +12659,7 @@ OnStop:
 	donpcevent "#room2_1_warp::OnDisable";
 	donpcevent "#room2_2_warp::OnDisable";
 	donpcevent "Rin#moc_room2_2::OnDisable";
-	donpcevent "Rin#moc_room2_1::OnDisable";
+	//donpcevent "Rin#moc_room2_1::OnDisable";
 	donpcevent "Rayan#moc_room2_2::OnDisable";
 	donpcevent "que_job01#room_2::OnReset";
 	stopnpctimer;
@@ -12684,7 +12674,7 @@ OnTimer245000:
 	donpcevent "#room2_1_warp::OnDisable";
 	donpcevent "#room2_2_warp::OnDisable";
 	donpcevent "Rin#moc_room2_2::OnDisable";
-	donpcevent "Rin#moc_room2_1::OnDisable";
+	//donpcevent "Rin#moc_room2_1::OnDisable";
 	donpcevent "Rayan#moc_room2_2::OnDisable";
 	end;
 
@@ -13811,7 +13801,8 @@ OnTouch:
 		set mao_morocc2,18;
 		changequest 7026,7027;
 		close2;
-		consumeitem 602; //Wing_Of_Butterfly
+		//consumeitem 602; //Wing_Of_Butterfly
+		warp "SavePoint",0,0;
 		end;
 	}
 	else if (mao_morocc2 == 19) {
@@ -13903,7 +13894,8 @@ que_dan02,115,53,3	script	Man#moc2_crazyR01	456,{
 		set mao_morocc2,20;
 		changequest 7028,7029;
 		close2;
-		consumeitem 602; //Wing_Of_Butterfly
+		//consumeitem 602; //Wing_Of_Butterfly
+		warp "SavePoint",0,0;
 		donpcevent "Mr. Kidd#moc_extra01::OnDisable";
 	}
 	else {
@@ -13962,9 +13954,11 @@ que_dan02,102,42,3	script	Disfigured Corpse#moc2	457,{
 	close;
 }
 
+// Ash-Vacuum Warper :: gogoash
+//============================================================ 
 /*
-//Mid Camp Warper (gogoash), Translated from the Official [Slim]
-prontera,161,192,5	script	Ash Vacuum Warper	707,{
+// Event NPC, now disabled on official servers.
+prontera,161,192,5	script	Ash-Vacuum Warper	707,{
 	mes "[Warp Soldier]";
 	mes "For a limited period.";
 	mes "I can send you to Ash-Vacuum without any fee.";
@@ -13972,25 +13966,22 @@ prontera,161,192,5	script	Ash Vacuum Warper	707,{
 	mes "[Warp Soldier]";
 	mes "Do you want to go to Ash-Vacuum right now?";
 	next;
-	switch(select("Yes, please","Not yet")) {
-
-		case 1:
-			mes "[Warp Soldier]";
-			mes "Ok. I hope you";
-			mes "enjoy your trip.";
-			close2;
-			set ep13_ryu,100;
-			warp "mid_camp",210,291;
-			break;
-		case 2:
-			mes "[Warp Soldier]";
-			mes "No problem. I understand.";
-			mes "Tell me when you change your mind.";
-			mes "See you.";
-			close;
-			break;
+	switch(select("Yes, please:Not yet")) {
+	case 1:
+		mes "[Warp Soldier]";
+		mes "Ok. I hope you";
+		mes "enjoy your trip.";
+		close2;
+		set ep13_ryu,100;
+		warp "mid_camp",210,291;
+		end;
+	case 2:
+		mes "[Warp Soldier]";
+		mes "No problem. I understand.";
+		mes "Tell me when you change your mind.";
+		mes "See you.";
+		close;
 	}
-	end;
 }
 */
 

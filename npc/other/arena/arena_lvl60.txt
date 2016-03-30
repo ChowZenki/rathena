@@ -1,11 +1,11 @@
-//===== rAthena Script ========================================
+//===== rAthena Script =======================================
 //= Izlude Arena Level 60
 //===== By: ==================================================
 //= SinSloth
 //===== Current Version: =====================================
 //= 1.4
 //===== Compatible With: =====================================
-//= Any Athena Version
+//= rAthena Project
 //===== Description: =========================================
 //= Izlude Battle Arena Level 60
 //===== Additional Comments: =================================

@@ -1,11 +1,11 @@
 //===== rAthena Script =======================================
-//= War of Emperium (Payon)
+//= War of Emperium (Payon) - Bright Arbor
 //===== By: ==================================================
 //= L0ne_W0lf
 //===== Current Version: =====================================
 //= 1.3
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= NPCs that relate to Payon Guild Castle 1
 //===== Additional Comments: =================================
@@ -106,7 +106,6 @@ payg_cas01,120,58,4	duplicate(cm)	Kurunnadi#payg_cas01	55
 // Treasure Room Exit
 //============================================================
 payg_cas01,295,8,0	script	#lever_PA01	111,{
-
 	mes " ";
 	mes "There's a small lever. Will you pull it?";
 	next;

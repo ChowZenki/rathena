@@ -5,7 +5,7 @@
 //===== Current Version: ===================================== 
 //= 1.1
 //===== Compatible With: ===================================== 
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= [Official Conversion]
 //= Separates cards from equipment.
@@ -285,6 +285,11 @@
 
 	set .@equip_id, getequipid(.@equip_num);
 	set .@equip_refine, getequiprefinerycnt(.@equip_num);
+
+	// anti-hack
+	if (callfunc("F_IsEquipCardHack", .@equip_num, .@equip_card[0], .@equip_card[1], .@equip_card[2], .@equip_card[3]))
+		close;
+
 	delequip .@equip_num;
 
 	// Chance of retaining refine level.
@@ -356,5 +361,5 @@
 	mes "That is all for the results of the card separation. Please come again.";
 	close;
 }
-malangdo,215,166,4	duplicate(CardSeparation_mal)	Jeremy#pa0829	553
-malangdo,208,166,6	duplicate(CardSeparation_mal)	Richard#pa0829	559
+malangdo,215,166,4	duplicate(CardSeparation_mal)	Jeremy#pa0829	553	// Armors :: mal_yong
+malangdo,208,166,6	duplicate(CardSeparation_mal)	Richard#pa0829	559	// Weapons :: soc_weapon

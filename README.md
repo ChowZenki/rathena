@@ -1,13 +1,16 @@
 rAthena
 =======
+
+Build Status: [![Build Status](https://travis-ci.org/rathena/rathena.png?branch=master)](https://travis-ci.org/rathena/rathena)
+
 Table of Contents
 ---------
-* 1 What is rAthena?
-* 2 Prerequisites
-* 3 Installation
-* 4 Troubleshooting
-* 5 Helpful Links
-* 6 More Documentation
+1. What is rAthena?
+2. Prerequisites
+3. Installation
+4. Troubleshooting
+5. Helpful Links
+6. More Documentation
 
 1. What is rAthena?
 ---------
@@ -28,9 +31,8 @@ is broken down into Windows and Linux prerequisites.
 	* MySQL ( http://www.mysql.com/downloads/mysql/ )
 	* MySQL Workbench ( http://www.mysql.com/downloads/workbench/ )
 	* MS Visual C++ ( http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express )
-	* **[svn]** TortoiseSVN ( http://tortoisesvn.net/downloads.html )
-	* **[git]** TortoiseGIT ( http://code.google.com/p/tortoisegit/ )
-	* **[git]** MSysGit ( http://code.google.com/p/msysgit/downloads/ )
+	* TortoiseGIT ( http://code.google.com/p/tortoisegit/ )
+	* MSysGit ( http://msysgit.github.io/ or https://github.com/msysgit/git/releases )
 
 * Linux (names of packages may require specific version numbers on certain distributions)
 	* gcc
@@ -40,8 +42,7 @@ is broken down into Windows and Linux prerequisites.
 	* mysql-server
 	* pcre-devel
 	* zlib-devel
-	* **[svn]** subversion
-	* **[git]** git
+	* git
 
 3. Installation 
 ---------
@@ -51,12 +52,10 @@ relevant to your Operation System, please refer to the Wiki (links at the end of
 * Windows
 	* Install prerequisites
 	* Create a folder to download rAthena into (e.g. C:\rAthena)
-	* Right click this folder and select:
-		* **[svn]** "SVN Checkout"
-		* **[git]** "Git Clone"
-	* Paste the SVN URL into the box:
-		* **[svn]** https://rathena.svn.sourceforge.net/svnroot/rathena/trunk/
-		* **[git]** https://github.com/rathena/rathena.git
+	* Right click this folder and select "Git Clone"
+	* Paste the GitHub URL into the box:
+
+				https://github.com/rathena/rathena.git
 	* Open MySQL Workbench and create an instance to connect to your MySQL Server
 	* Create a database (rathena), a user (rathena), give permissions (GRANT SELECT,INSERT,UPDATE,DELETE)
 		and then login using the new user
@@ -64,17 +63,18 @@ relevant to your Operation System, please refer to the Wiki (links at the end of
 
 * Linux
 	* Type:
-	(For CentOS)
-		* **[svn]** yum install gcc make mysql mysql-devel mysql-server pcre-devel subversion zlib-devel
-		* **[git]**
-		      * yum install gcc make mysql mysql-devel mysql-server pcre-devel zlib-devel
-		      * rpm -Uvhhttp://repo.webtatic.com/yum/centos/5/latest.rpm
-		      * yum install --enablerepo=webtatic git-all
-		      * yum install --enablerepo=webtatic --disableexcludes=main git-all
-	(For Debian)
-		* **[svn]** apt-get install subversion make gcc libmysqlclient-dev zlib1g-dev libpcre3-dev
-		* **[git]** apt-get install git make gcc libmysqlclient-dev zlib1g-dev libpcre3-dev
-	* Type: mysql_secure_installation
+		* (For CentOS)
+
+				yum install gcc make mysql mysql-devel mysql-server pcre-devel zlib-devel
+				rpm -Uvhhttp://repo.webtatic.com/yum/centos/5/latest.rpm
+				yum install --enablerepo=webtatic git-all
+				yum install --enablerepo=webtatic --disableexcludes=main git-all
+		* (For Debian)
+
+				apt-get install git make gcc libmysqlclient-dev zlib1g-dev libpcre3-dev
+	* Type:
+
+				mysql_secure_installation
 	* Start your MySQL server
 	* Setup a MySQL user:
 
@@ -82,12 +82,18 @@ relevant to your Operation System, please refer to the Wiki (links at the end of
 	* Assign permissions:
 
 				GRANT SELECT,INSERT,UPDATE,DELETE ON `rathena\_rag`.* TO 'rathena'@'localhost';
-	* Type:
-		* **[svn]** svn checkout https://rathena.svn.sourceforge.net/svnroot/rathena/trunk/ ~/trunk
-		* **[git]** git clone https://github.com/rathena/rathena.git ~/rathena
-	* Insert SQL files: mysql --user=root -p rathena_rag < trunk/sql-files/main.sql (and others)
-	* Type: cd trunk && ./configure && make clean && make sql
-	* When you're ready, type: ./athena-start start
+	* Clone a GIT repository:
+
+				git clone https://github.com/rathena/rathena.git ~/rathena
+	* Insert SQL files:
+
+				mysql --user=root -p rathena_rag < trunk/sql-files/main.sql (and others)
+	* Configure and compile:
+
+				./configure && make clean && make server
+	* When you're ready, start the servers:
+
+				./athena-start start
 
 
 
@@ -99,7 +105,7 @@ can be solved simply by looking at the error messages given.
 
 Examples:
 
-* You get an error on your map-server_sql that looks something like this:
+* You get an error on your map-server that looks something like this:
 
 			[Error]: npc_parsesrcfile: Unable to parse, probably a missing or extra TAB in 
 				file 'npc/custom/jobmaster.txt', line '17'. Skipping line...
@@ -141,25 +147,27 @@ Examples:
 
 5. Helpful Links
 ---------
-The following list of links point to various help files within the SVN, articles or
-pages on the Wiki or topics within the rAthena forum.
-
 * rAthena Forums
-	http://rathena.org/
-
-* SVN Repository
-	https://rathena.svn.sourceforge.net/svnroot/rathena/trunk/
+	* https://rathena.org/
 
 * GIT Repository
-	https://github.com/rathena/rathena
+	* https://github.com/rathena/rathena
 
 * Full Installation Instructions
-	* Windows: http://rathena.org/wiki/Installation_on_Windows
-	* CentOS: http://rathena.org/wiki/Installation_(CentOS)
-	* Debian: http://rathena.org/wiki/Installation_(Debian)
+	* Windows: https://rathena.org/wiki/Installation_on_Windows
+	* CentOS: https://rathena.org/wiki/Installation_(CentOS)
+	* Debian: https://rathena.org/wiki/Installation_(Debian)
+	* FreeBSD: https://rathena.org/wiki/Installation_(FreeBSD)
 	
 * rAthena IRC Channel
-	irc://irc.rizon.net/rathena
+	* irc://irc.rizon.net/rathena
+	* Web Chat: https://rathena.org/board/page/chat.html
+
+* rAthena Wiki
+	https://rathena.org/board/index.php?app=ipbwiki
+
+* Fork and Pull Request Q&A
+	https://rathena.org/board/topic/86913-pull-request-qa/
 
 
 6. More Documentation

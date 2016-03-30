@@ -1,15 +1,8 @@
-//===== rAthena Script ======================================= 
+//===== rAthena Script =======================================
 //= Quest NPCs located in Lighthalzen
-//===== By: ================================================== 
-//= Persian, Vicious_Pucca, aoa00, Evera, MasterOfMupppets,
-//= Lupus, Lord Gywall
-//===== Current Version: ===================================== 
-//= 5.0
-//===== Compatible With: ===================================== 
-//= rAthena SVN
-//===== Description: ========================================= 
+//===== Description: =========================================
 //= Quests related to Lighthalzen City.
-//===== Additional Comments: ================================= 
+//===== Changelogs: ==========================================
 //= 4.0 Updated several NPCs to Official (iRO) dialog, and restrucured. [L0ne_W0lf]
 //= 4.1 Updated Dungeon quest, and Friendhsip quest to 10.3 standards. [L0ne_W0lf]
 //= 4.2 Fixed wrong variable type in use in "Box#cube1". [L0ne_W0lf]
@@ -20,7 +13,7 @@
 //=     Tube just makes sure you have 1 or more permits.
 //= 4.4 Replaced effect numerics with constants. [L0ne_W0lf]
 //= 4.5 Corrected an Incorrect check of the Shinokas_Quest. (bugreport:2276) [Samuray22]
-//=	  Replaced effect numerics with constants.
+//=     Replaced effect numerics with constants.
 //= 4.5 Official Gangster Alert script. [Gepard]
 //= 4.6 Added quest log entries for:
 //=     - Cursed Spirit Quest
@@ -28,7 +21,9 @@
 //= 4.8 Fixed Cursed Spirit Quest EXP reward. [Euphy]
 //= 4.9 Fixed incorrect use of 'close'. [Joseph]
 //= 5.0 Updated RE/Pre-RE EXP. [Euphy]
-//============================================================ 
+//= 5.1 Added GM management NPCs. [Euphy]
+//= 5.2 Fixed some quest log issues. [Capuche]
+//============================================================
 
 // Gangster Alert [Official Conversion]
 //============================================================
@@ -912,7 +907,7 @@ lhz_cube,237,183,0	script	Barrel#cube	111,{
 			mes "you can only enter single";
 			mes "digit numbers at one time...^000000";
 			next;
-			for( set $@i, 0; .@i < 9; set .@i, .@i + 1 )
+			for( set .@i, 0; .@i < 9; set .@i, .@i + 1 )
 				input .@input;
 			mes "^3355FFNothing happened...^000000";
 			close;
@@ -929,7 +924,7 @@ lhz_cube,237,183,0	script	Barrel#cube	111,{
 			mes "metal plate on top of the box";
 			mes "you found inside the keg.^000000";
 			next;
-			for( set $@i, 0; .@i < 9; set .@i, .@i + 1 ) {
+			for( set .@i, 0; .@i < 9; set .@i, .@i + 1 ) {
 				input .@input;
 				if (.@input == .@numbers[.@i]) set .@number_line,.@number_line+1;
 			}
@@ -1720,8 +1715,8 @@ OnTouch:
 	case 1:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 100) {
-			set zeny,zeny-100;
+		if (Zeny >= 100) {
+			set Zeny, Zeny-100;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1736,8 +1731,8 @@ OnTouch:
 	case 2:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 200) {
-			set zeny,zeny-200;
+		if (Zeny >= 200) {
+			set Zeny, Zeny-200;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1753,8 +1748,8 @@ OnTouch:
 	case 3:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 10) {
-			set zeny,zeny-10;
+		if (Zeny >= 10) {
+			set Zeny, Zeny-10;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1793,8 +1788,8 @@ OnTouch:
 	case 1:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 100) {
-			set zeny,zeny-100;
+		if (Zeny >= 100) {
+			set Zeny, Zeny-100;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1809,8 +1804,8 @@ OnTouch:
 	case 2:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 200) {
-			set zeny,zeny-200;
+		if (Zeny >= 200) {
+			set Zeny, Zeny-200;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1826,8 +1821,8 @@ OnTouch:
 	case 3:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 10) {
-			set zeny,zeny-10;
+		if (Zeny >= 10) {
+			set Zeny, Zeny-10;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1866,8 +1861,8 @@ OnTouch:
 	case 2:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 100) {
-			set zeny,zeny-100;
+		if (Zeny >= 100) {
+			set Zeny, Zeny-100;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1883,8 +1878,8 @@ OnTouch:
 	case 4:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 200) {
-			set zeny,zeny-200;
+		if (Zeny >= 200) {
+			set Zeny, Zeny-200;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -1900,8 +1895,8 @@ OnTouch:
 	case 5:
 		mes "^3355FF*SHHHHHHUK!*^000000";
 		specialeffect EF_STEAL;
-		if (zeny >= 10) {
-			set zeny,zeny-10;
+		if (Zeny >= 10) {
+			set Zeny, Zeny-10;
 		}
 		next;
 		mes "[" + strcharinfo(0) + "]";
@@ -2018,7 +2013,7 @@ OnTouch:
 						mes "but I hope we never bump";
 						mes "into each other ever again!";
 					}
-					set zeny,zeny-.@price;
+					set Zeny, Zeny-.@price;
 					getitem 12016,.@number; //Speed_Up_Potion
 				}
 			}
@@ -2517,9 +2512,9 @@ lhz_in02,201,210,5	script	Digotz	869,{
 }
 
 lighthalzen,337,232,3	script	Maku	870,{
+	mes "[Maku]";
 	if (friendship > 14) {
 		cutin "lhz_macu07",2;
-		mes "[Maku]";
 		mes "Why is this guy so";
 		mes "late? Once he shows";
 		mes "up, I swear, I'm gonna...!";
@@ -2531,24 +2526,16 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "I've been saving a whole";
 		mes "six pack of kickass to open,";
 		mes "just for him. Heh heh heh~";
-		close2;
-		cutin "lhz_macu07",255;
-		end;
 	}
-	if (friendship == 14) {
+	else if (friendship == 14) {
 		cutin "lhz_macu05",2;
-		mes "[Maku]";
 		mes "Why is Digotz";
 		mes "so late? This isn't";
 		mes "like him at all. Maybe";
 		mes "something's wrong?";
-		close2;
-		cutin "lhz_macu05",255;
-		end;
 	}
-	if (friendship == 13 && countitem(7351) > 0) {
+	else if (friendship == 13 && countitem(7351) > 0) {
 		cutin "lhz_macu06",2;
-		mes "[Maku]";
 		mes "Hey, what is that? You want";
 		mes "I should read this journal?";
 		mes "Er, okay, but I'm none too";
@@ -2589,7 +2576,7 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "wings and Digotz always";
 		mes "wanted to wear them too.";
 		next;
-		cutin "lhz_macu03",255;
+		cutin "",255;
 		mes "[Benkaistein's Journal]";
 		mes "^856363Maku, Digotz and me went";
 		mes "outside of town. Of course,";
@@ -2615,7 +2602,7 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "But I gotta say, he was also";
 		mes "the most fearless of us.";
 		next;
-		cutin "lhz_macu03",255;
+		cutin "",255;
 		mes "[Benkaistein's Journal]";
 		mes "^856363Digot's been sick for three";
 		mes "days now. It's just a normal";
@@ -2632,7 +2619,7 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "that, uh, horrible disease. No";
 		mes "one should have that one!";
 		next;
-		cutin "lhz_macu04",255;
+		cutin "",255;
 		mes "[Benkaistein's Journal]";
 		mes "^856363Mom and dad keep telling";
 		mes "me not to hang out with Maku";
@@ -2653,7 +2640,7 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "...";
 		mes "......";
 		next;
-		cutin "lhz_macu01",255;
+		cutin "",255;
 		mes "[Benkaistein's Journal]";
 		mes "^856363Today, the three of us";
 		mes "made an oath of brotherhood,";
@@ -2712,13 +2699,9 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "Um, now I gotta get";
 		mes "ready for something.";
 		mes "^333333(But not to see Digotz!)^000000";
-		close2;
-		cutin "lhz_macu04",255;
-		end;
 	}
-	if (friendship > 5 && friendship < 13) {
+	else if (friendship > 5 && friendship < 13) {
 		cutin "lhz_macu06",2;
-		mes "[Maku]";
 		mes "Arrrrgh! Whenever I hear";
 		mes "about that Digotz, I get so";
 		mes "peeved! Is that guy giving";
@@ -2732,12 +2715,8 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "all those freakin' guards!";
 		mes "Arrrrrrrgh! Man, where's";
 		mes "Benkaistein when I need him?";
-		close2;
-		cutin "lhz_macu06",255;
-		end;
 	}
-	if (friendship == 5) {
-		mes "[Maku]";
+	else if (friendship == 5) {
 		mes "RrrrRrrrr....";
 		mes "RrrrrRRRrrRR....";
 		mes "GGGGGRRRRR...";
@@ -2792,13 +2771,9 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "I could just go over and";
 		mes "kick Digotz's ass! I swear,";
 		mes "if it weren't for them...!";
-		close2;
-		cutin "lhz_macu06",255;
-		end;
 	}
-	if (friendship == 4) {
+	else if (friendship == 4) {
 		cutin "lhz_macu05",2;
-		mes "[Maku]";
 		mes "What the hell are you";
 		mes "still doing around here?";
 		mes "You must have better things";
@@ -2894,13 +2869,9 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "him carefully enough? It's";
 		mes "been a while, but I know";
 		mes "how Digotz talks, man.";
-		close2;
-		cutin "lhz_macu01",255;
-		end;
 	}
-	if (friendship == 3) {
+	else if (friendship == 3) {
 		cutin "lhz_macu03",2;
-		mes "[Maku]";
 		mes "Man, I need to blow off some";
 		mes "steam! Sure, me and Digotz";
 		mes "were buds before and maybe";
@@ -2922,12 +2893,8 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "I mean, I'm not the one";
 		mes "holding a grudge. It's all";
 		mes "that guy's fault! Sheeeesh!";
-		close2;
-		cutin "lhz_macu03",255;
-		end;
 	}
-	if (friendship == 2) {
-		mes "[Maku]";
+	else if (friendship == 2) {
 		mes "Hey, what are you";
 		mes "doing back over here?";
 		mes "I thought I recommended";
@@ -2945,7 +2912,6 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "who usedta be my buddy,";
 		mes "but obviously not anymore.";
 		next;
-		cutin "lhz_macu05",255;
 		cutin "lhz_macu02",2;
 		mes "[Maku]";
 		mes "Sure, we were real close";
@@ -2964,13 +2930,9 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "I hate the guy, one hundred";
 		mes "percent! The next time I see";
 		mes "him, I'll beat him to a pulp!";
-		close2;
-		cutin "lhz_macu02",255;
-		end;
 	}
-	if (friendship == 1) {
+	else {
 		cutin "lhz_macu01",2;
-		mes "[Maku]";
 		mes "Hey, you're one of";
 		mes "those adventurers, eh?";
 		mes "Welcome to the ghetto.";
@@ -3010,7 +2972,8 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "anyway? Sure, we all";
 		mes "do it, but still...";
 		set friendship,1;
-		setquest 12000;
+		if (isbegin_quest(12000) == 0)
+			setquest 12000;
 		next;
 		mes "[Maku]";
 		mes "Well, when you get";
@@ -3019,67 +2982,9 @@ lighthalzen,337,232,3	script	Maku	870,{
 		mes "out the rich section of town.";
 		mes "I'm bitter, but I'll also admit";
 		mes "it's way nicer than this place.";
-		close2;
-		cutin "lhz_macu01",255;
-		end;
 	}
-	cutin "lhz_macu01",2;
-	mes "[Maku]";
-	mes "Hey, you're one of";
-	mes "those adventurers, eh?";
-	mes "Welcome to the ghetto.";
-	mes "Nothing too adventurous";
-	mes "here, but hey, you can";
-	mes "explore all you want.";
-	next;
-	mes "[Maku]";
-	mes "I don't know if you know,";
-	mes "but actually, the people who";
-	mes "live here ain't allowed to";
-	mes "explore this whole city. It's";
-	mes "kind of taboo to talk about,";
-	mes "but what do I care, right?";
-	next;
-	mes "[Maku]";
-	mes "Yeah, basically the rich";
-	mes "people here are too afraid";
-	mes "of the poor people comin' to";
-	mes "see them, so the security in";
-	mes "this city is pretty tight! Those";
-	mes "upper class guys are trash...";
-	next;
-	mes "[Maku]";
-	mes "I didn't used to think";
-	mes "this way. I actually used";
-	mes "to have a pretty rich friend";
-	mes "till I found out he's not all";
-	mes "I thought he was. That";
-	mes "moron! Why's he like that?!";
-	next;
-	mes "[Maku]";
-	mes "Eh, forget about it.";
-	mes "Why am I even talking";
-	mes "about my personal life";
-	mes "to someone I just met";
-	mes "anyway? Sure, we all";
-	mes "do it, but still...";
-	set friendship,1;
-	next;
-	mes "[Maku]";
-	mes "Well, when you get";
-	mes "bored of the ghetto,";
-	mes "you really oughta check";
-	mes "out the rich section of town.";
-	mes "I'm bitter, but I'll also admit";
-	mes "it's way nicer than this place.";
 	close2;
-	cutin "lhz_macu01",255;
-	cutin "lhz_macu02",255;
-	cutin "lhz_macu03",255;
-	cutin "lhz_macu04",255;
-	cutin "lhz_macu05",255;
-	cutin "lhz_macu06",255;
-	cutin "lhz_macu07",255;
+	cutin "",255;
 	end;
 }
 
@@ -3397,7 +3302,7 @@ OnTouch_:
 }
 
 lhz_dun01,239,135,0	duplicate(#kiz01-1)	#kiz01-2	-1,3,3
-lhz_dun01,66,212,0	duplicate(#kiz01-1)	#kiz01-3	-1,3,3
+lhz_dun01,66,213,0	duplicate(#kiz01-1)	#kiz01-3	-1,3,3
 lhz_dun01,225,198,0	duplicate(#kiz01-1)	#kiz01-4	-1,3,3
 
 lhz_dun02,244,229,0	script	#kiz02-1	-1,3,3,{
@@ -3436,7 +3341,7 @@ OnTouch_:
 	end;
 }
 
-lhz_dun02,60,298,0	duplicate(#kiz02-1)	#kiz02-2	-1,3,3
+lhz_dun02,60,293,0	duplicate(#kiz02-1)	#kiz02-2	-1,3,3
 lhz_dun02,267,278,0	duplicate(#kiz02-1)	#kiz02-3	-1,3,3
 lhz_dun02,94,199,0	duplicate(#kiz02-1)	#kiz02-4	-1,3,3
 
@@ -4434,10 +4339,10 @@ lighthalzen,346,263,3	script	Elder#lhz	846,{
 				mes "you must search should";
 				mes "be clear to you now! Don't";
 				mes "forget these placemarks!";
-				viewpoint 1,104,282,1,0xFF99FF33;
-				viewpoint 1,105,282,2,0xFF99FF33;
-				viewpoint 1,104,281,3,0xFF99FF33;
-				viewpoint 1,105,281,4,0xFF99FF33;
+				viewpoint 1,104,282,1,0x99FF33;
+				viewpoint 1,105,282,2,0x99FF33;
+				viewpoint 1,104,281,3,0x99FF33;
+				viewpoint 1,105,281,4,0x99FF33;
 				next;
 				mes "[Elder]";
 				mes "Good luck, youngster.";
@@ -5190,7 +5095,7 @@ OnTouch_:
 
 lhz_in03,12,162,0	warp	#to_lhz		1,1,lighthalzen,321,322
 
-lighthalzen,319,321,0	script	#li_bother	-1,3,3,{
+lighthalzen,319,321,0	script	#li_bother	-1,2,2,{ //3,3
 OnTouch_:
 	if ((lhz_curse == 24 ) || (lhz_curse == 25)) {
 		mes ".............";
@@ -5471,7 +5376,8 @@ lhz_in01,27,247,5	script	Representative#li_02	71,{
 		mes "please refer to the Rekenber";
 		mes "Guidebook located to my side.";
 		mes "Thank you and have a nice day.";
-		changequest 2088,2089;
+		if (isbegin_quest(2088))
+			changequest 2088,2089;
 		close;
 	}
 	else {
@@ -6395,8 +6301,7 @@ lighthalzen,179,170,4	script	Ordinary Man	98,{
 	}
 	else if(lhz_boss == 1)
 	{
-		set @weather,rand(1,5);
-		if(@weather == 4)
+		if(rand(1,5) == 4)
 		{
 			mes "[Ghalstein]";
 			mes "Hm? It's a little";
@@ -6734,7 +6639,7 @@ lighthalzen,179,170,4	script	Ordinary Man	98,{
 				{
 					case 1:
 						break;
-	
+
 					case 2:
 						mes "[Ghalstein]";
 						mes "Very good.";
@@ -7056,7 +6961,7 @@ OnTouch:
 				mes "awfully familiar...";
 				mes "But what do I care?)";
 				close;
-			
+
 			case 2:
 				mes "["+strcharinfo(0)+"]";
 				mes "(This is too weird.";
@@ -7947,8 +7852,7 @@ L_Mission:
 	}
 	else if(lhz_boss == 22)
 	{
-		set @read_pre,rand(1,5);
-		if(@read_pre == 3)
+		if(rand(1,5) == 3)
 		{
 			mes "[Karl]";
 			mes "Hm. After completely";
@@ -8171,8 +8075,7 @@ L_Mission:
 	}
 	else if(lhz_boss == 25)
 	{
-		set @talk_pre,rand(1,10);
-		if(@talk_pre == 8)
+		if(rand(1,10) == 8)
 		{
 			mes "[Karl]";
 			mes "Alright, I just";
@@ -8485,7 +8388,7 @@ L_Mission:
 		mes "^3355FFGhalstein^000000 again. It's time";
 		mes "we let you loose, adventurer.";
 		set lhz_boss,43;
-		completequest 12028;
+		// completequest 12028;
 		close2;
 		cutin "",255;
 		end;
@@ -8495,8 +8398,8 @@ L_Mission:
 		mes "[Karl]";
 		mes ".........";
 		mes "............";
-		for(set .@i,12015; .@i<=12028; set .@i,.@i+1) {
-			if (checkquest(.@i) > 0 && checkquest(.@i) < 2)
+		for(set .@i,12015; .@i < 12028; set .@i,.@i+1) {
+			if (checkquest(.@i) >= 0 && checkquest(.@i) < 2)
 				completequest .@i;
 		}
 		close;
@@ -9099,7 +9002,7 @@ lhz_fild02,228,214,0	script	Wounded Man	849,{
 				mes "Jargeah just passed";
 				mes "out in a very ugly way.";
 				close;
-			
+
 			case 2:
 				mes "^3355FFAnd so you left the";
 				mes "wounded man alone. Not";
@@ -10315,6 +10218,27 @@ lhz_dun02,282,278,0	script	Broken Machine	111,{
 	}
 }
 
+sec_in02,17,170,4	script	boss::lght_boss_admin	809,{
+	callfunc "F_GM_NPC";
+	mes "[Patch]";
+	mes "Tell me what you want.";
+	next;
+	switch(select("Current Variables:How Many:Shinokas - Quest Complete")) {
+	case 1:
+		break;
+	case 2:
+		input .@input,0,1000;
+		set lght_boss,.@input;
+		break;
+	case 3:
+		set Shinokas_Quest,11;
+		close;
+	}
+	mes " ";
+	mes ""+lght_boss;
+	close;
+}
+
 lhz_in02,19,274,2	script	Maintenance Guy	851,{
 
 	mes "[Kudiuu]";
@@ -10484,7 +10408,7 @@ lhz_in01,174,258,3	script	Young Man#reken	868,{
 		next;
 		set lhz_rekenber,22;
 		getexp (checkre(3))?55000:550000,0;
-		completequest 12013;
+		completequest 12014;
 		cutin "lhz_kaz01",2;
 		mes "[Kazien]";
 		mes "Look, I can't have";
@@ -10660,7 +10584,7 @@ lhz_in01,174,258,3	script	Young Man#reken	868,{
 		mes "for the Rune-Midgarts Kingdom.";
 		next;
 		set lhz_rekenber,12;
-		changequest 5005,5006;
+		// changequest 5005,5006;
 		getexp (checkre(3))?40000:400000,0;
 		cutin "lhz_kaz03",2;
 		mes "[Kazien]";
@@ -10715,7 +10639,7 @@ lhz_in01,174,258,3	script	Young Man#reken	868,{
 		mes "to me for another job, okay?";
 		next;
 		set lhz_rekenber,8;
-		changequest 12008,12010;
+		changequest 12010,12011;
 		cutin "lhz_kaz01",2;
 		mes "[Kazien]";
 		mes "Don't forget...";
@@ -11146,7 +11070,7 @@ einbroch,55,52,3	script	Laboratory Guard#reken	 852,{
 						mes "I still can't allow you to";
 						mes "enter the laboratory.";
 						set lhz_rekenber,4;
-						changequest 12008,12010;
+						// changequest 12008,12010;
 						close;
 
 					case 2:
@@ -11161,7 +11085,7 @@ einbroch,55,52,3	script	Laboratory Guard#reken	 852,{
 						changequest 12008,12010;
 						close;
 				}
-				
+
 			case 2:
 				mes "[" + strcharinfo(0) + "]";
 				mes "Whoa, I'm leaving!";
@@ -11505,7 +11429,7 @@ airplane_01,96,48,3	script	Man#Lyozien	868,{
 		mes "know, embarassing orders...";
 		next;
 		set lhz_rekenber,11;
-		changequest 12011,12012;
+		changequest 12013,12014;
 		cutin "lhz_ryo01",2;
 		mes "[Lyozien]";
 		mes "No? Eh, just meet up with";
@@ -11588,7 +11512,7 @@ airplane_01,96,48,3	script	Man#Lyozien	868,{
 		mes "at the Airport, and tell him that his orders have safely arrived.";
 		next;
 		set lhz_rekenber,9;
-		changequest 12010,12011;
+		changequest 12011,12012;
 		cutin "lhz_ryo11",2;
 		mes "[Lyozien]";
 		mes "Once you tell Mr. Ahman";
@@ -11810,7 +11734,7 @@ airplane_01,1,1,1	script	#bully1	-1,{
 OnInit:
 	disablenpc "#bully1";
 	end;
-	
+
 OnEnter:
 	enablenpc "#bully1";
 	initnpctimer;
@@ -11818,7 +11742,7 @@ OnEnter:
 	monster "airplane_01",87,47,"Thug",1592,1,"#bully1::OnMyMobDead";
 	set .bullymobs,2;
 	end;
-	
+
 OnReset:
 	killmonster "airplane_01","#bully1::OnMyMobDead";
 	end;
@@ -11839,7 +11763,7 @@ OnMyMobDead:
 		stopnpctimer;
 	}
 	end;
-	
+
 OnTimer120000:
 	donpcevent "#bully1::OnReset";
 	donpcevent "#bully1::OnInit";
@@ -11853,7 +11777,7 @@ airplane_01,2,2,1	script	#bully2	-1,{
 OnInit:
 	disablenpc "#bully2";
 	end;
-	
+
 OnEnter:
 	enablenpc "#bully2";
 	initnpctimer;
@@ -11862,7 +11786,7 @@ OnEnter:
 	monster "airplane_01",97,43,"Thug",1592,1,"#bully2::OnMyMobDead";
 	set .bullymobs,3;
 	end;
-	
+
 OnReset:
 	killmonster "airplane_01","#bully2::OnMyMobDead";
 	end;
@@ -11882,7 +11806,7 @@ OnMyMobDead:
 		stopnpctimer;
 	}
 	end;
-	
+
 OnTimer120000:
 	donpcevent "#bully2::OnReset";
 	donpcevent "#bully2::OnInit";
@@ -11893,7 +11817,7 @@ OnTimer120000:
 
 airplane_01,99,47,3	script	#packidentity	139,2,2,{
 	end;
-	
+
 OnInit:
 	disablenpc "#packidentity";
 	end;
@@ -11991,23 +11915,65 @@ OnTouch:
 	end;
 }
 
-//============================================================ 
+airplane_01,10,10,3	script	#LyozienSwitch	111,{
+	callfunc "F_GM_NPC";
+	mes "[Lyozien Switch]";
+	mes "Input password.";
+	mes "Enter 0 to cancel.";
+	next;
+	set .@i, callfunc("F_GM_NPC",1028,0,0,4000);
+	if (.@i == -2) {
+		mes "[Lyozien Switch]";
+		mes "Incorrect.";
+		close;
+	} else if (.@i == -1) {
+		mes "[Lyozien Switch]";
+		mes "Canceled.";
+		close;
+	} else if (.@i == 0) {
+		close;
+	} else {
+		mes "[Lyozien Switch]";
+		mes "Do you want to";
+		mes "turn the Lyozien";
+		mes "NPC ON or OFF?";
+		next;
+		switch(select("On:OFF")) {
+		case 1:
+			set .@str$,"activated";
+			donpcevent "Man#Lyozien::OnEnable";
+			break;
+		case 2:
+			set .@str$,"deactivated";
+			donpcevent "Man#Lyozien::OnDisable";
+			break;
+		}
+		mes "[Lyozien Switch]";
+		mes "Lyozien NPC is";
+		mes "now "+.@str$+".";
+		mes " ";
+		mes "/mm airplane_01.gat 96 48";
+		close;
+	}
+}
+
+//============================================================
 // Old changelog
-//============================================================ 
+//============================================================
 //= Grammar/script check please. This was a quick job.
 //= Things to add: Look at the thread "Lighthalzen Guard" in SVN script
-//= 0.3 Initial Release
+//= 0.3 Initial Release. [Persian] [Vicious_Pucca] [aoa00] [Evera] [MasterOfMupppets] [Lupus] [Lord Gywall]
 //= 0.5 Added mobsters spawn and Einbroch pollution. Alert lasts either 10 minutes or all mob killed.
 //= 0.6-0.9 fix small bug. Added Bio-lab entrance Quest. Added Getting security-card Quest.
 //= 1.0 Patched "mobsters spawn & Alert" like Real-RO.
 //= 1.0a fixed rand(1,10) + comparision. There just can't be 'X < 1' [Lupus]
 //= 1.1 Changed the mobster spawn to g_mobster to prevent exploits [MasterOfMuppets]
 //= 1.2 Added the cube room quest by DeNy, translated by vicious_pucca. [MasterOfMuppets]
-//=	Thanks to Linuxwolf for a grammar check as well =).
+//=     Thanks to Linuxwolf for a grammar check as well =).
 //= 1.2a Moved Biolab entrance to lhz_dun warps. [Vicious]
 //= 1.3 Fixed password bug, fixed endless item exploit, some typos [Lupus]
 //= 1.4 Fixed password abuse. When people don't read the password under the picture
-//= 	and enter Zero shit 8) (TODO: I saw some "Sticks" abuses, too.. where you could skip a part of quest...)
+//=     and enter Zero shit 8) (TODO: I saw some "Sticks" abuses, too.. where you could skip a part of quest...)
 //= 1.5 Fixed Mobster's OnDead event(it has to start with "On"!) [Playtester]
 //= 1.5a Fixed "free stick" bug, thx 2 Neouni [Lupus]
 //= 1.6 Added Gywall's Pickpocket Quest
@@ -12017,29 +11983,29 @@ OnTouch:
 //= 2.0 Removed Duplicates [Silent]
 //= 2.1 Added first part of Bio Ethics Quest [Evera]
 //= 2.2 Added bit to say Bio Ethics is unfinished, and if a player attempts, it warps them
-//= 	out after finished part... Don't want players getting stuck ;_; [Evera]
+//=     out after finished part... Don't want players getting stuck ;_; [Evera]
 //= 2.3 Finished Bio Ethics Quest. Need bug testers before moving to trunk, my
-//=	mind was somewhere else when writing @_@ [Evera]
-//= 2.4	Fixed the bug where a str&int debug was shown in the console for
-//=	test tube in bio labs quest. [Evera]
-//= 2.5	Fixed Kellasus giving you extra skills in Bio Ethics quest [Evera]
-//= 2.6	Fixed exploit letting any class get homunculus from Bio Ethics Quest [Evera]
+//=     mind was somewhere else when writing @_@ [Evera]
+//= 2.4 Fixed the bug where a str&int debug was shown in the console for
+//=     test tube in bio labs quest. [Evera]
+//= 2.5 Fixed Kellasus giving you extra skills in Bio Ethics quest [Evera]
+//= 2.6 Fixed exploit letting any class get homunculus from Bio Ethics Quest [Evera]
 //= 2.6a Moved Bio Ethics Quest to Alchemist SKILL QUESTS [Lupus]
 //= 2.7 fixed bugs that let people bypass some quest parts V_V [Lupus]
-//=	reused cubekey var for 4 Cube Room key vars
+//=     reused cubekey var for 4 Cube Room key vars
 //= 2.8 More optimization. Also fixed bug with "2x short sticks -> long" [Lupus]
-//=	Now uses MISC_QUEST&512 instead of 'hzdun'. WIP
+//=     Now uses MISC_QUEST&512 instead of 'hzdun'. WIP
 //= 2.9 Fixed Friendship Quest levelup exploit (u could get EXP twice) [Lupus]
 //= 3.0 Added Cursed Spirit Quest. [SinSloth]
-//=	Moved a book non-related to Lighthalzen quests.
+//=     Moved a book non-related to Lighthalzen quests.
 //= 3.1 Added Schwartzvalt Trilogy Quest. [SinSloth]
 //= 3.2 Updated some NPCs regarding Hugel Rebellion Quest. [SinSloth]
 //= 3.2 Removed the NPC "#kiz03-4" as I couldn't find any [L0ne_W0lf]
-//=	reference to it in the Aegis script.
+//=     reference to it in the Aegis script.
 //= 3.3 Fixed a wrong negative value checking in Schwartzvalt Trilogy quest. [SinSloth]
 //= 3.4 Fixed experience gains to match upcoming rate adjustments. [SinSloth]
 //= 3.5 Touch-ups to the Friendship quest. Added EXP reward. [L0ne_W0lf]
-//=	Added cutins for "Maku" npc, and changed "set HP" to percentheal.
+//=     Added cutins for "Maku" npc, and changed "set HP" to percentheal.
 //= 3.5a Adjusted EXP given by "Benkasttein" to be the same as that given by Maku. [L0ne_W0lf]
 //= 3.6 Corrected NPC names to fall within proper restrictions. [L0ne_W0lf]
 //= 3.7 Counter-fixed negative value checking to now look for both positive and negative values

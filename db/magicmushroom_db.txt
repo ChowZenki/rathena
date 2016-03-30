@@ -1,6 +1,10 @@
-// Magic Mushroom DB.
-// Database for skills that are randomly used through Magic Mushroom status change.
-// Format: SkillID
+// Magic Mushroom Database
+// List of skills that are randomly used through Magic Mushroom status change.
+//
+// Structure of Database:
+// SkillID{,RemoveFlag}
+//
+// - To remove entry by importing, put 1 value on 'RemoveFlag'
 
 7	//SM_MAGNUM
 8	//SM_ENDURE

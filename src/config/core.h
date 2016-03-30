@@ -11,7 +11,7 @@
 /// Max number of items on @autolootid list
 #define AUTOLOOTITEM_SIZE 10
 
-/// The maximum number of atcommand suggestions
+/// The maximum number of atcommand and @warp suggestions
 #define MAX_SUGGESTIONS 10
 
 /// Comment to disable the official walk path
@@ -27,9 +27,9 @@
 /// your map-server using more resources while this is active, comment the line
 #define SCRIPT_CALLFUNC_CHECK
 
-/// Uncomment to disable rAthena's anonymous stat report
+/// Comment to enable rAthena's anonymous stat report
 /// We kindly ask you to consider keeping it enabled, it helps us improve rAthena.
-//#define STATS_OPT_OUT
+#define STATS_OPT_OUT
 
 /// uncomment to enable query_sql script command and mysql logs to function on it's own thread
 /// be aware this feature is under tests and you should use at your own risk, we however
@@ -37,20 +37,17 @@
 //#define BETA_THREAD_TEST
 
 /// Uncomment to enable the Cell Stack Limit mod.
-/// It's only config is the battle_config cell_stack_limit.
-/// Only chars affected are those defined in BL_CHAR (mobs and players currently)
+/// It's only config is the battle_config custom_cell_stack_limit.
+/// Only chars affected are those defined in BL_CHAR
 //#define CELL_NOSTACK
 
 /// Uncomment to enable circular area checks.
-/// By default, all range checks in Aegis are of Square shapes, so a weapon range
-/// - of 10 allows you to attack from anywhere within a 21x21 area.
-/// Enabling this changes such checks to circular checks, which is more realistic,
+/// By default, most server-sided range checks in Aegis are of square shapes, so a monster
+/// with a range of 4 can attack anything within a 9x9 area.
+/// Client-sided range checks are, however, are always circular.
+/// Enabling this changes all checks to circular checks, which is more realistic,
 /// - but is not the official behaviour.
 //#define CIRCULAR_AREA
-
-/// Uncomment to enable Non Stackable items unique ID
-/// By enabling it, the system will create an unique id for each new non stackable item created
-//#define NSI_UNIQUE_ID
 
 /// Comment to disable Guild/Party Bound item system
 /// By default, we recover/remove Guild/Party Bound items automatically
@@ -58,6 +55,36 @@
 
 /// Uncomment to enable real-time server stats (in and out data and ram usage).
 //#define SHOW_SERVER_STATS
+
+/// Uncomment to enable skills damage adjustments
+/// By enabling this, db/skill_damage.txt and the skill_damage mapflag will adjust the
+/// damage rate of specified skills.
+//#define ADJUST_SKILL_DAMAGE
+
+/// Uncomment to enable the job base HP/SP table (job_basehpsp_db.txt)
+#define HP_SP_TABLES
+
+/// Uncomment to enable VIP system.
+//#define VIP_ENABLE
+
+/// Enable VIP script changes? (requires VIP_ENABLE)
+/// The primary effects of this are restrictions on non-VIP players, such as requiring
+/// a Reset Stone to change into third classes, paying more for equipment upgrades, and
+/// so forth. Note that the changes are based on euRO, not iRO.
+#define VIP_SCRIPT 0
+
+#ifdef VIP_ENABLE
+	#define MIN_STORAGE 300 // Default number of storage slots.
+	#define MIN_CHARS 3 // Default number of characters per account.
+	#define MAX_CHAR_VIP 6 // This must be less than MAX_CHARS
+	#define MAX_CHAR_BILLING 0 // This must be less than MAX_CHARS
+#endif
+
+/// Comment to disable the official packet obfuscation support.
+/// When enabled, make sure there is value for 'packet_keys' of used packet version or
+/// defined 'packet_keys_use' in db/[import/]packet_db.txt.
+/// This requires PACKETVER 2011-08-17 or newer.
+#define PACKET_OBFUSCATION
 
 /**
  * No settings past this point

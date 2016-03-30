@@ -5,7 +5,7 @@
 //===== Current Version: =====================================
 //= 1.4a
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= Like agit_main, this file is required
 //= for SE castles to function.
@@ -697,12 +697,12 @@ OnStartArena:
 						mes .@n$;
 						mes "Guardian Stones that have";
 						mes "been destroyed can be revived";
-						mes "after a certain time, but one of^FFFFFF ^000000 the guild members must give";
-						mes "me the order. I can also report^FFFFFF ^000000 the status of the Guardian Stones.";
+						mes "after a certain time, but one of the guild members must give";
+						mes "me the order. I can also report the status of the Guardian Stones.";
 						close;
 					case 2:
 						mes .@n$;
-						mes "^4D4DFFFortress Gates^000000 are the second ^FFFFFF ^000000 line of guild stronghold defense,";
+						mes "^4D4DFFFortress Gates^000000 are the second line of guild stronghold defense,";
 						mes "and are protected by extra barricades activated by the Guardian Stones.";
 						mes "These gates are located in three different parts of the fortress.";
 						next;
@@ -967,6 +967,7 @@ OnInit:
 		mes "5 Red Gemstones";
 		next;
 		mes "^3355FFDo you want to continue?^000000";
+		next;
 		if(select("No:Continue") == 1) {
 			mes "^3355FFWork canceled.^000000";
 			close;
@@ -1504,8 +1505,9 @@ OnGuardianStoneDied:
 	end;
 
 OnTimer300000:
+	set .@num, atoi(charat(strnpcinfo(1),2));
 	set .@str$,substr(strnpcinfo(2),0,1)+substr(strnpcinfo(2),8,9);
-	donpcevent "1st Guardian Stone#"+.@str$+"::OnEnable";
+	donpcevent ((.@num == 1)?"1st":"2nd")+" Guardian Stone#"+.@str$+"::OnEnable";
 	setd "$agit_"+.@str$+"["+(atoi(charat(strnpcinfo(1),2))-1)+"]",2;
 	stopnpctimer;
 	end;
@@ -1726,8 +1728,9 @@ function	script	LinkFlag	{
 // Return Flags (function)
 //============================================================
 function	script	ReturnFlag	{
+	.@map$ = getarg(0);
 	set .@str$, (compare(strnpcinfo(4),"aru"))?"Arunafeltz":"Schwaltzvalt";
-	set .@GID, getcastledata(getarg(0),1);
+	.@GID =  getcastledata(.@map$,1);
 	if (!.@GID) {
 		mes "[ "+.@str$+" Royal Edict ]";
 		mes "The Holy Kingdom of";
@@ -1744,18 +1747,18 @@ function	script	ReturnFlag	{
 		mes "do you wish to return";
 		mes "to your stronghold?";
 		next;
-		if(select("Return to the Stronghold:Cancel") == 1 && getcharid(2) == getcastledata(getarg(0),1)) {
-			if (compare(getarg(0),"arug")) {
-				if (getarg(0) == "arug_cas01") setarray .@i[0],67,193;
-				else if (getarg(0) == "arug_cas02") setarray .@i[0],43,256;
+		if(select("Return to the Stronghold:Cancel") == 1 && getcharid(2) == getcastledata(.@map$,1)) {
+			if (compare(.@map$,"arug")) {
+				if (.@map$ == "arug_cas01") setarray .@i[0],67,193;
+				else if (.@map$ == "arug_cas02") setarray .@i[0],43,256;
 				else setarray .@i[0],121,318;	// Castles 3,4,5 are identical.
 			}
 			else {
-				if (getarg(0) == "schg_cas02") setarray .@i[0],136,188;
-				else if (getarg(0) == "schg_cas03") setarray .@i[0],308,202;
+				if (.@map$ == "schg_cas02") setarray .@i[0],136,188;
+				else if (.@map$ == "schg_cas03") setarray .@i[0],308,202;
 				else setarray .@i[0],120,290;	// Castles 1,4,5 are identical.
 			}
-			warp getarg(0),.@i[0],.@i[1];
+			warp .@map$,.@i[0],.@i[1];
 		}
 		close;
 	}

@@ -5,7 +5,7 @@
 //===== Current Version: =====================================
 //= 2.0
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= Disables the following items:
 //=   Dead Branch (604), Bloody Branch (12103),
@@ -81,6 +81,7 @@ yuno_in02	mapflag	nobranch
 yuno_in03	mapflag	nobranch
 yuno_in04	mapflag	nobranch
 yuno_in05	mapflag	nobranch
+que_ba	mapflag	nobranch
 que_sign01	mapflag	nobranch
 ein_in01	mapflag	nobranch
 airport	mapflag	nobranch
@@ -290,7 +291,7 @@ que_qaru03	mapflag	nobranch
 que_qaru04	mapflag	nobranch
 que_qaru05	mapflag	nobranch
 
-// Episode 12 ===========
+// Episode 12 ==================
 1@cata	mapflag	nobranch
 2@cata	mapflag	nobranch
 e_tower	mapflag	nobranch
@@ -301,7 +302,7 @@ e_tower	mapflag	nobranch
 5@tower	mapflag	nobranch
 6@tower	mapflag	nobranch
 
-// Episode 13.1 ===========
+// Episode 13.1 ================
 mid_camp	mapflag	nobranch
 mid_campin	mapflag	nobranch
 man_fild01	mapflag	nobranch
@@ -323,7 +324,7 @@ bat_b02	mapflag	nobranch
 bat_a01	mapflag	nobranch
 bat_a02	mapflag	nobranch
 
-// Episode 13.2 ===========
+// Episode 13.2 ================
 1@nyd	mapflag	nobranch
 2@nyd	mapflag	nobranch
 manuk	mapflag	nobranch

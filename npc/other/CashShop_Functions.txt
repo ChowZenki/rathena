@@ -3,18 +3,19 @@
 //===== By: ================================================== 
 //= L0ne_W0lf
 //===== Current Version: ===================================== 
-//= 1.7
+//= 1.8
 //===== Compatible With: ===================================== 
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
-//= Used explicitly in the Item Database for Cash shop items
+//= Used for Cash shop items:
 //= - Kafra Card
 //= - Giant Fly Wing
 //= - Neuralizer
 //= - Dungeon Teleport Scroll
+//= Also included are functions related to the VIP system.
 //===== Additional Comments: ================================= 
 //= 1.0 First version. [L0ne_W0lf]
-//=	F_CashPartyCall Optimized by Trancid.
+//=     F_CashPartyCall Optimized by Trancid.
 //= 1.1 Updated Dungeon Teleport Scroll. [L0ne_W0lf]
 //=     Added Town Teleport Scroll Function
 //=     Added Seige Teleport Scroll Function
@@ -24,6 +25,9 @@
 //= 1.5 Neuralizer is no longer consumed upon failure. [Euphy]
 //= 1.6 Updated Teleport functions and added Curious_Snowball. [Euphy]
 //= 1.7 Added Dungeon Teleport Scroll II maps. [Euphy]
+//= 1.8 Added VIP function. [Euphy]
+//= 1.9 Added checkdragon() in F_CashReset. [Capuche]
+//= 2.0 Moved VIP_Third_Class function into other/re/CashShop_Functions. [Capuche]
 //============================================================ 
 
 // Kafra Card
@@ -41,7 +45,6 @@ function	script	F_CashStore	{
 	return;
 }
 
-
 // Giant Fly Wing
 //============================================================ 
 // - Warp party leader to random spot on the map.
@@ -50,7 +53,7 @@ function	script	F_CashStore	{
 function	script	F_CashPartyCall	{
 	warp "Random",0,0;
 	if(getpartyleader(getcharid(1),2) == getcharid(0)) {
-		getmapxy .@mapl$, .@xl, .@yl, 0;
+		getmapxy .@mapl$, .@xl, .@yl, UNITTYPE_PC;
 		warpparty .@mapl$, .@xl, .@yl, getcharid(1), .@mapl$;
 	}
 	return;
@@ -61,7 +64,7 @@ function	script	F_CashPartyCall	{
 // - Reset players skills. Weight must be 0, options must be off.
 // - No arguments.
 function	script	F_CashReset	{
-	if (Class != Job_Novice && Weight == 0 && !checkriding() && !checkfalcon() && !checkcart() && !ismounting()) {
+	if (Class != Job_Novice && Weight == 0 && !checkriding() && !checkfalcon() && !checkcart() && !ismounting() && !checkdragon()) {
 		resetskill;
 		sc_end SC_ALL;
 		if (countitem(12213)) delitem 12213,1;
@@ -235,7 +238,7 @@ function	script	F_CashTele	{
 //============================================================ 
 // - Warp player to selected guild castle.
 // - No arguments.
-function	script	F_CashSeigeTele	{
+function	script	F_CashSiegeTele	{
 	switch(select("Neuschwanstein (aldeg_cas01):Hohenschwangau (aldeg_cas02):Nuernberg (aldeg_cas03):Wuerzburg (aldeg_cas04):Rothenburg (aldeg_cas05):Repherion (gefg_cas01):Eeyorbriggar (gefg_cas02):Yesnelph (gefg_cas03):Bergel (gefg_cas04):Mersetzdeitz (gefg_cas05):Bright Arbor (payg_cas01):Sacred Altar (payg_cas02):Holy Shadow (payg_cas03):Scarlet Palace (payg_cas04):Bamboo Grove Hill (payg_cas05):Kriemhild (prtg_cas01):Swanhild (prtg_cas02):Fadhgridh (prtg_cas03):Skoegul (prtg_cas04):Gondul (prtg_cas05)")) {
 	case 1: warp "alde_gld",48,91; end;
 	case 2: warp "alde_gld",103,245; end;

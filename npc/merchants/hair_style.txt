@@ -5,7 +5,7 @@
 //===== Current Version: =====================================
 //= 1.4
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= [Official Conversion]
 //= Allows you to change your hairstyle.
@@ -472,7 +472,7 @@ alberta_in,55,142,7	script	Hair Dresser	91,{
 				mes "- *snip snip snip snip* -";
 				mes "- *bzzzzzzz bzzzzzzz bzzzzzzz bzzzzzzz* -";
 				next;
-				set Zeny,Zeny-99800;
+				set Zeny, Zeny-99800;
 				delitem 973,3;	// Counteragent
 				delitem 974,3;	// Mixture
 				delitem 901,100;	// Danggie
@@ -508,16 +508,17 @@ alberta_in,55,142,7	script	Hair Dresser	91,{
 	}
 
 L_cutin:
+	.@num = getarg(0);
 	if(Sex == 1) {
-		if(getarg(0) < 10)
-			cutin "hair_m_0"+getarg(0),4;
+		if (.@num  < 10)
+			cutin "hair_m_0"+ .@num,4;
 		else
-			cutin "hair_m_"+getarg(0),4;
+			cutin "hair_m_"+ .@num,4;
 	} else {
-		if(getarg(0) < 10)
-			cutin "hair_f_0"+getarg(0),4;
+		if (.@num < 10)
+			cutin "hair_f_0"+ .@num,4;
 		else
-			cutin "hair_f_"+getarg(0),4;
+			cutin "hair_f_"+ .@num,4;
 	}
 	return;
 }
@@ -658,7 +659,7 @@ alberta,33,141,7	script	Roving Hair Dresser	87,{
 			mes "Once more I've outdone myself.";
 			mes "It's such a unique and talented";
 			mes "style! Yes, I am the best! Wooohahahahahaha!";
-			set Zeny,Zeny-199800;
+			set Zeny, Zeny-199800;
 			setlook 1,rand(1,19);
 			setlook 6,rand(1,8);
 			close;
@@ -1044,7 +1045,7 @@ lhz_in02,100,143,3	script	Hair Dresser#li	122,{
 				mes "*Clip clip clip clip*";
 				mes "*Bzzzzzzzzzzzzzzzzzzzz*^000000";
 				next;
-				set zeny,zeny-99800;
+				set Zeny, Zeny-99800;
 				delitem 973,3; //Counteragent
 				delitem 974,3; //Mixture
 				delitem 901,100; //Danggie
@@ -1251,7 +1252,7 @@ lhz_in02,91,155,5	script	Assistant Beautician#li	862,{
 				mes "[Assistant Beautician]";
 				mes "^333333*Pant Pant Pant*^000000";
 				next;
-				set zeny,zeny-250000;
+				set Zeny, Zeny-250000;
 				setlook VAR_HEAD,.@style_r;
 				setlook VAR_HEADPALETTE,.@color_r;
 				mes "[Assistant Beautician]";

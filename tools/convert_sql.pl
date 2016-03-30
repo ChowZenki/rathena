@@ -1,23 +1,24 @@
 #!/usr/bin/perl
 
 # Item Database:
-#     --i=../db/pre-re/item_db.txt --o=../sql-files/item_db.sql --t=pre --m=item
-#     --i=../db/re/item_db.txt --o=../sql-files/item_db_re.sql --t=re --m=item
+#     --i=../db/pre-re/item_db.txt --o=../sql-files/item_db.sql --t=pre --m=item --table=item_db
+#     --i=../db/re/item_db.txt --o=../sql-files/item_db_re.sql --t=re --m=item --table=item_db_re
 #
 # Mob Database:
-#     --i=../db/pre-re/mob_db.txt --o=../sql-files/mob_db.sql --t=pre --m=mob
-#     --i=../db/re/mob_db.txt --o=../sql-files/mob_db_re.sql --t=re --m=mob
+#     --i=../db/pre-re/mob_db.txt --o=../sql-files/mob_db.sql --t=pre --m=mob --table=mob_db
+#     --i=../db/re/mob_db.txt --o=../sql-files/mob_db_re.sql --t=re --m=mob --table=mob_db_re
 #
 # Mob Skill Database:
-#     --i=../db/pre-re/mob_skill_db.txt --o=../sql-files/mob_skill_db.sql --t=pre --m=mob_skill
-#     --i=../db/re/mob_skill_db.txt --o=../sql-files/mob_skill_db_re.sql --t=re --m=mob_skill
+#     --i=../db/pre-re/mob_skill_db.txt --o=../sql-files/mob_skill_db.sql --t=pre --m=mob_skill --table=mob_skill_db
+#     --i=../db/re/mob_skill_db.txt --o=../sql-files/mob_skill_db_re.sql --t=re --m=mob_skill --table=mob_skill_db_re
 #
 # List of options:
-#   item_db.pl --help
+#   convert_sql.pl --help
 
 use strict;
 use warnings;
 use Getopt::Long;
+use File::Basename;
 
 my $sFilein = "";
 my $sFileout = "";
@@ -75,6 +76,8 @@ sub GetArgs {
 
 sub Main {
 	GetArgs();
+	my($filename, $dir, $suffix) = fileparse($0);
+	chdir $dir; #put ourself like was called in tool folder
 	BuildDataForType($sTarget,$sType);
 	ConvertFile($sFilein,$sFileout,$sType);
 	print "Conversion ended.\n";
@@ -82,12 +85,14 @@ sub Main {
 
 sub ConvertFile { my($sFilein,$sFileout,$sType)=@_;
 	my $sFHout;
+	my %hAEgisName = ();
 	print "Starting ConvertFile with: \n\t filein=$sFilein \n\t fileout=$sFileout \n";
 	open FHIN,"$sFilein" or die "ERROR: Can't read or locate $sFilein.\n";
 	open $sFHout,">$sFileout" or die "ERROR: Can't write $sFileout.\n";
 	
 	printf $sFHout ("%s\n",$create_table);
 	while(my $ligne=<FHIN>) {
+		my $sWasCom = 0;
 		if ($ligne =~ /^\s*$/ ) {
 				print $sFHout "\n";
 				next;
@@ -97,6 +102,7 @@ sub ConvertFile { my($sFilein,$sFileout,$sType)=@_;
 			if ($ligne =~ /^\/\//) {
 				printf $sFHout ("#");
 				$ligne = substr($ligne, 2);
+				$sWasCom = 1;
 			}
 			my @champ = ();
 			if ($sType =~ /mob_skill/i ) {
@@ -110,6 +116,14 @@ sub ConvertFile { my($sFilein,$sFileout,$sType)=@_;
 				printf $sFHout ("%s\n", $ligne);
 			} else {
 				printf $sFHout ("REPLACE INTO `%s` VALUES (", $db);
+				if( $sType =~ /item/i and $sWasCom == 0){ #check if aegis name is duplicate, (only for not com)
+					$hAEgisName{$champ[1]}++;
+					if($hAEgisName{$champ[1]} > 1){
+						print "Warning, aegisName=$champ[1] multiple occurence found, val=$hAEgisName{$champ[1]}, line=$ligne\n" ;
+						$champ[1] = $champ[1]."_"x($hAEgisName{$champ[1]}-1);
+						print "Converted into '$champ[1]'\n" ;
+					}
+				}				 
 				for (my $i=0; $i<$#champ; $i++) {
 					printField($sFHout,$champ[$i],",",$i);
 				}
@@ -193,33 +207,34 @@ sub BuildDataForType{ my($sTarget,$sType) = @_;
 
 DROP TABLE IF EXISTS `$db`;
 CREATE TABLE `$db` (
-  `id` smallint(5) unsigned NOT NULL default '0',
-  `name_english` varchar(50) NOT NULL default '',
-  `name_japanese` varchar(50) NOT NULL default '',
-  `type` tinyint(2) unsigned NOT NULL default '0',
-  `price_buy` mediumint(10) unsigned default NULL,
-  `price_sell` mediumint(10) unsigned default NULL,
-  `weight` smallint(5) unsigned NOT NULL default '0',
-  `attack` smallint(3) unsigned default NULL,
-  `defence` smallint(5) NULL default NULL,
-  `range` tinyint(2) unsigned default NULL,
-  `slots` tinyint(2) unsigned default NULL,
-  `equip_jobs` int(12) unsigned default NULL,
-  `equip_upper` tinyint(8) unsigned default NULL,
-  `equip_genders` tinyint(2) unsigned default NULL,
-  `equip_locations` smallint(4) unsigned default NULL,
-  `weapon_level` tinyint(2) unsigned default NULL,
-  `equip_level` tinyint(3) unsigned default NULL,
-  `refineable` tinyint(1) unsigned default NULL,
-  `view` smallint(3) unsigned default NULL,
+  `id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `name_english` varchar(50) NOT NULL DEFAULT '',
+  `name_japanese` varchar(50) NOT NULL DEFAULT '',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `price_buy` mediumint(8) unsigned DEFAULT NULL,
+  `price_sell` mediumint(8) unsigned DEFAULT NULL,
+  `weight` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `attack` smallint(5) unsigned DEFAULT NULL,
+  `defence` smallint(5) unsigned DEFAULT NULL,
+  `range` tinyint(2) unsigned DEFAULT NULL,
+  `slots` tinyint(2) unsigned DEFAULT NULL,
+  `equip_jobs` int(10) unsigned DEFAULT NULL,
+  `equip_upper` tinyint(2) unsigned DEFAULT NULL,
+  `equip_genders` tinyint(1) unsigned DEFAULT NULL,
+  `equip_locations` mediumint(7) unsigned DEFAULT NULL,
+  `weapon_level` tinyint(1) unsigned DEFAULT NULL,
+  `equip_level` tinyint(3) unsigned DEFAULT NULL,
+  `refineable` tinyint(1) unsigned DEFAULT NULL,
+  `view` smallint(5) unsigned DEFAULT NULL,
   `script` text,
   `equip_script` text,
   `unequip_script` text,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UniqueAegisName` (`name_english`)
 ) ENGINE=MyISAM;
 ";
 		#NOTE: These do not match the table struct defaults.
-		@defaults = ('0','\'\'','\'\'','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL');
+		@defaults = ('0','\'\'','\'\'','0','NULL','NULL',0,'NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL');
 		}
 		elsif($sTarget =~ /Re/i){
 			$db = $sTable;
@@ -235,37 +250,43 @@ CREATE TABLE `$db` (
 
 DROP TABLE IF EXISTS `$db`;
 CREATE TABLE `$db` (
- `id` smallint(5) unsigned NOT NULL default '0',
- `name_english` varchar(50) NOT NULL default '',
- `name_japanese` varchar(50) NOT NULL default '',
- `type` tinyint(2) unsigned NOT NULL default '0',
- `price_buy` mediumint(10) unsigned default NULL,
- `price_sell` mediumint(10) unsigned default NULL,
- `weight` smallint(5) unsigned NOT NULL default '0',
- `atk:matk` varchar(11) default '',
- `defence` smallint(5) NULL default NULL,
- `range` tinyint(2) unsigned default NULL,
- `slots` tinyint(2) unsigned default NULL,
- `equip_jobs` int(12) unsigned default NULL,
- `equip_upper` tinyint(8) unsigned default NULL,
- `equip_genders` tinyint(2) unsigned default NULL,
- `equip_locations` smallint(4) unsigned default NULL,
- `weapon_level` tinyint(2) unsigned default NULL,
- `equip_level` varchar(10) default '',
- `refineable` tinyint(1) unsigned default NULL,
- `view` smallint(3) unsigned default NULL,
- `script` text,
- `equip_script` text,
- `unequip_script` text,
- PRIMARY KEY (`id`)
+  `id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `name_english` varchar(50) NOT NULL DEFAULT '',
+  `name_japanese` varchar(50) NOT NULL DEFAULT '',
+  `type` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `price_buy` mediumint(8) unsigned DEFAULT NULL,
+  `price_sell` mediumint(8) unsigned DEFAULT NULL,
+  `weight` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `atk:matk` varchar(11) DEFAULT NULL,
+  `defence` smallint(5) unsigned DEFAULT NULL,
+  `range` tinyint(2) unsigned DEFAULT NULL,
+  `slots` tinyint(2) unsigned DEFAULT NULL,
+  `equip_jobs` int(10) unsigned DEFAULT NULL,
+  `equip_upper` tinyint(2) unsigned DEFAULT NULL,
+  `equip_genders` tinyint(1) unsigned DEFAULT NULL,
+  `equip_locations` mediumint(7) unsigned DEFAULT NULL,
+  `weapon_level` tinyint(1) unsigned DEFAULT NULL,
+  `equip_level` varchar(10) DEFAULT NULL,
+  `refineable` tinyint(1) unsigned DEFAULT NULL,
+  `view` smallint(5) unsigned DEFAULT NULL,
+  `script` text,
+  `equip_script` text,
+  `unequip_script` text,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UniqueAegisName` (`name_english`)
 ) ENGINE=MyISAM;
 ";
 		#NOTE: These do not match the table struct defaults.
-		@defaults = ('0','\'\'','\'\'','0','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL');
+		@defaults = ('0','\'\'','\'\'','0','NULL','NULL',0,'NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL','NULL');
 		}
 	}
 	elsif($sType =~ /mob_skill/i) { #Same format for Pre-Renewal and Renewal.
-		$db = "mob_skill_db" unless($db);
+		$db = $sTable;
+		if($sTarget =~ /Pre/i){
+			$db = "mob_skill_db" unless($db);
+		}else{
+			$db = "mob_skill_db_re" unless($db);
+		}
 		$nb_columns = 19;
 		@str_col = (1,2,8,9,10,11,17,18);
 		$line_format = "([^\,]*),"x($nb_columns-1)."([^\,]*)";
@@ -299,7 +320,12 @@ CREATE TABLE IF NOT EXISTS `$db` (
 ";
 	}
 	elsif($sType =~ /mob/i) { #Same format for Pre-Renewal and Renewal.
-		$db = "mob_db" unless($db);
+		$db = $sTable;
+		if($sTarget =~ /Pre/i){
+			$db = "mob_db" unless($db);
+		}else{
+			$db = "mob_db_re" unless($db);
+		}
 		$nb_columns = 57;
 		@str_col = (1,2,3);
 		$line_format = "([^\,]*),"x($nb_columns-1);
@@ -335,37 +361,37 @@ CREATE TABLE `$db` (
   `Scale` tinyint(4) unsigned NOT NULL default '0',
   `Race` tinyint(4) unsigned NOT NULL default '0',
   `Element` tinyint(4) unsigned NOT NULL default '0',
-  `Mode` smallint(6) unsigned NOT NULL default '0',
+  `Mode` int(11) unsigned NOT NULL default '0',
   `Speed` smallint(6) unsigned NOT NULL default '0',
   `aDelay` smallint(6) unsigned NOT NULL default '0',
   `aMotion` smallint(6) unsigned NOT NULL default '0',
   `dMotion` smallint(6) unsigned NOT NULL default '0',
   `MEXP` mediumint(9) unsigned NOT NULL default '0',
-  `MVP1id` smallint(9) unsigned NOT NULL default '0',
+  `MVP1id` smallint(5) unsigned NOT NULL default '0',
   `MVP1per` smallint(9) unsigned NOT NULL default '0',
-  `MVP2id` smallint(9) unsigned NOT NULL default '0',
+  `MVP2id` smallint(5) unsigned NOT NULL default '0',
   `MVP2per` smallint(9) unsigned NOT NULL default '0',
-  `MVP3id` smallint(9) unsigned NOT NULL default '0',
+  `MVP3id` smallint(5) unsigned NOT NULL default '0',
   `MVP3per` smallint(9) unsigned NOT NULL default '0',
-  `Drop1id` smallint(9) unsigned NOT NULL default '0',
+  `Drop1id` smallint(5) unsigned NOT NULL default '0',
   `Drop1per` smallint(9) unsigned NOT NULL default '0',
-  `Drop2id` smallint(9) unsigned NOT NULL default '0',
+  `Drop2id` smallint(5) unsigned NOT NULL default '0',
   `Drop2per` smallint(9) unsigned NOT NULL default '0',
-  `Drop3id` smallint(9) unsigned NOT NULL default '0',
+  `Drop3id` smallint(5) unsigned NOT NULL default '0',
   `Drop3per` smallint(9) unsigned NOT NULL default '0',
-  `Drop4id` smallint(9) unsigned NOT NULL default '0',
+  `Drop4id` smallint(5) unsigned NOT NULL default '0',
   `Drop4per` smallint(9) unsigned NOT NULL default '0',
-  `Drop5id` smallint(9) unsigned NOT NULL default '0',
+  `Drop5id` smallint(5) unsigned NOT NULL default '0',
   `Drop5per` smallint(9) unsigned NOT NULL default '0',
-  `Drop6id` smallint(9) unsigned NOT NULL default '0',
+  `Drop6id` smallint(5) unsigned NOT NULL default '0',
   `Drop6per` smallint(9) unsigned NOT NULL default '0',
-  `Drop7id` smallint(9) unsigned NOT NULL default '0',
+  `Drop7id` smallint(5) unsigned NOT NULL default '0',
   `Drop7per` smallint(9) unsigned NOT NULL default '0',
-  `Drop8id` smallint(9) unsigned NOT NULL default '0',
+  `Drop8id` smallint(5) unsigned NOT NULL default '0',
   `Drop8per` smallint(9) unsigned NOT NULL default '0',
-  `Drop9id` smallint(9) unsigned NOT NULL default '0',
+  `Drop9id` smallint(5) unsigned NOT NULL default '0',
   `Drop9per` smallint(9) unsigned NOT NULL default '0',
-  `DropCardid` smallint(9) unsigned NOT NULL default '0',
+  `DropCardid` smallint(5) unsigned NOT NULL default '0',
   `DropCardper` smallint(9) unsigned NOT NULL default '0',
   PRIMARY KEY  (`ID`)
 ) ENGINE=MyISAM;

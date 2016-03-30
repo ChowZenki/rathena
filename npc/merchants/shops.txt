@@ -3,18 +3,18 @@
 //===== By: ================================================== 
 //= rAthena Dev Team
 //===== Current Version: ===================================== 
-//= 3.4
+//= 3.5
 //===== Compatible With: ===================================== 
-//= rAthena 1.0+
+//= rAthena Project
 //===== Description: ========================================= 
 //= Town shop NPCs.
 //===== Additional Comments: ================================= 
 //= For earlier update notes see the bottom.
 //= 2.0 updated several shop npcs. [L0ne_W0lf]
-//=	Added proper Venom Knife dealer, and consiquently removed wenom Knives from weapon dealers.
-//=	Moved all Cooking related NPCs to their own section.
-//=	Re-alphabetized sections. Some of them were out of place.
-//=	Removed commented out shops.
+//=     Added proper Venom Knife dealer, and consiquently removed wenom Knives from weapon dealers.
+//=     Moved all Cooking related NPCs to their own section.
+//=     Re-alphabetized sections. Some of them were out of place.
+//=     Removed commented out shops.
 //= 2.0b Einbech tool dealer got lost somewhere along the way, re-added. [L0ne_W0lf]
 //= 2.1 Fixed missing item from "Fresh Fish" from cooking addition shops. [L0ne_W0lf]
 //= 2.1a Fixed the second "Line" selling in Comodo Weapon shop. (Should have been Whip) [L0ne_W0lf]
@@ -38,6 +38,7 @@
 //= 3.2 Added Missing Items to the pet Groomers in prontera, payon, and yuno. BugReport:6680[Spre]
 //= 3.3 Moved more shops to Renewal file. [Euphy]
 //= 3.4 Moved Izlude shops to pre-re/re paths. [Streusel]
+//= 3.5 Moved Ninja shops to Pre-RE/RE paths. [Euphy]
 //============================================================ 
 
 //=======================================================
@@ -66,9 +67,6 @@ alde_alche,38,184,3	shop	Material Seller#alche	755,7143:-1,7141:-1,7140:-1,6248:
 ama_in01,89,28,5	shop	Armor Dealer#ama	757,2211:-1,2401:-1,2403:-1,2501:-1,2503:-1,2101:-1,2103:-1,2305:-1,2321:-1,2332:-1,2328:-1,2627:-1
 ama_in01,102,28,3	shop	Weapon Dealer#ama	766,1207:-1,1216:-1,1107:-1,1122:-1,1116:-1,1154:-1,1407:-1,1457:-1,1354:-1,1519:-1
 ama_in01,24,30,5	shop	Tool Dealer#ama	763,1750:-1,1770:-1,611:-1,501:-1,502:-1,503:-1,504:-1,506:-1,645:-1,656:-1,601:-1,602:-1,1065:-1
-// Ninja Shops
-que_ng,72,31,2	shop	Boonji#nin	83,13250:-1,13251:-1,13252:-1,13253:-1,13254:-1
-que_ng,73,26,5	shop	Boonray#nin	83,2117:-1,7521:-1,7522:-1,7523:-1,7524:-1
 
 //=======================================================
 // Ayothaya
@@ -329,7 +327,7 @@ niflheim,209,180,5	shop	Chef Assistant#nif	83,581:-1
 //= 1.3a Fixed Louyang map name. Added additional shops in Yuno. [kobra_k88]
 //= 1.4 Added Niflheim Shops
 //= 1.5 New Payon Locations [Darkchild]
-//= Moved shops in Umbala.txt here. Commented out the duplicate ones.[kobra_k88]
+//=     Moved shops in Umbala.txt here. Commented out the duplicate ones.[kobra_k88]
 //= 1.6 Removed GRAPE ID 514 from shops (caused exploits)
 //= 1.7 Removed juices from custom amatsu shops (it's a quest item + levelup exploit)
 //= 1.8 Corrected Niflheim Shops and Morroc Jewel Merchant [celest]
@@ -352,13 +350,13 @@ niflheim,209,180,5	shop	Chef Assistant#nif	83,581:-1
 //=   -  Guys, I suggest we crop these comments and put them at the bottom soon
 //= 1.22 Thx8) Removed Berserk Potions from all shops but Comodo [Lupus]
 //= 1.3 Added Gunslinger shops. Credits goes to RockmanEXE for the info [erKURITA]
-//=	Added Bucket Hat to Flu Mask dealer and modified it's name to a more logical one :P [erKURITA]
+//=     Added Bucket Hat to Flu Mask dealer and modified it's name to a more logical one :P [erKURITA]
 //= 1.4 Added an ingredient seller to Morroc, thanks to Muad_Dib [MasterOfMuppets]
 //= a Removed doubled Morocc Ing.Seller, arranged the rest Ing.Sellers according to the city names [Lupus]
 //= 1.4b Commented out temp Gunslinger shops. [Lupus]
 //= 1.5 Removed Temp gunslinger shops and moved up the official ones. [erKURITA]
-//=	  Added Official Ninja shops in their correct location and commented a few
-//=	  shops. Thanks to RockmanEXE and Muad_Dib [erKURITA]
+//=     Added Official Ninja shops in their correct location and commented a few
+//=     shops. Thanks to RockmanEXE and Muad_Dib [erKURITA]
 //= 1.6 Implemented a missing Tool Shop in Lighthalzen [MasterOfMuppets]
 //= 1.7 Added some missing iRO - Lighthalzen NPCs [Musashiden]
 //= 1.8 Added Rachel Official shops. Special Thanks to RockmanEXE. [erKURITA]

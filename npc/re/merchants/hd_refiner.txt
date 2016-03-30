@@ -5,7 +5,7 @@
 //===== Current Version: =====================================
 //= 1.0
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= [Official Conversion]
 //= Refiners that use HD ores to refine equipment. Upon
@@ -18,7 +18,7 @@
 //= 1.0 First version. [Euphy]
 //============================================================
 
-// Blacksmith Mighty Hammer (+7~9)
+// Blacksmith Mighty Hammer (+7~9) :: cash_smelting79
 //============================================================
 -	script	::MightyHammer	-1,{
 	disable_items;
@@ -151,10 +151,9 @@ ein_in01,22,82,3	duplicate(MightyHammer)	Mighty Hammer#ein	826
 lhz_in02,280,19,3	duplicate(MightyHammer)	Mighty Hammer#lhz	826
 
 // iRO NPC locations:
-// moc_para01,38,185,4	duplicate(MightyHammer)	Mighty Hammer#ed	826
 // payon,174,133,4	duplicate(MightyHammer)	Mighty Hammer#im	826
 
-// Basta (+10 and up)
+// Basta (+10 and up) :: cash_smelting
 //============================================================
 -	script	::Basta	-1,{
 	disable_items;

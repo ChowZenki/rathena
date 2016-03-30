@@ -3,9 +3,9 @@
 //===== By: ================================================== 
 //= Muad_Dib
 //===== Current Version: ===================================== 
-//= 1.4
+//= 1.6
 //===== Compatible With: ===================================== 
-//= rAthena SVN r16945+
+//= rAthena Project; SVN r16945+
 //===== Description: ========================================= 
 //= [Official Conversion]
 //= Job change Quest from Assassin / Assassin Cross -> Guillotine Cross.
@@ -17,12 +17,14 @@
 //= 1.2 Moved "Girl" NPC off ve_fild05. [Euphy]
 //= 1.3 Added missing OnMyMobDead labels. [Euphy]
 //= 1.4 Added missing labels. [Joseph]
+//= 1.5 Added GM management function. [Euphy]
+//= 1.6 Added VIP features. [Euphy]
 //============================================================
 
 que_job01,75,96,3	script	Guild Member#3rdgc01	997,{
 	if (job_3rd_gc == 0) {
 		if (Class == Job_Assassin || Class == Job_Assassin_Cross || Class == Job_Baby_Assassin) {
-			if (BaseLevel == 99) {
+			if (BaseLevel > 98) {
 			L_Mission:
 				mes "[Ahcart]";
 				mes "Finally, it's time...";
@@ -76,6 +78,12 @@ que_job01,75,96,3	script	Guild Member#3rdgc01	997,{
 				next;
 				switch(select("I'll do it.:Give me time to think.")) {
 				case 1:
+					if (VIP_SCRIPT) {
+						callfunc "VIP_Third_Class";
+						set job_3rd_gc, 3;
+						setquest 7101;
+						next;
+					}
 					mes "[Ahcart]";
 					mes "Ok, to Veins.";
 					mes "I'll contact them.";
@@ -112,7 +120,7 @@ que_job01,75,96,3	script	Guild Member#3rdgc01	997,{
 		mes "You are not an assassin.";
 		close;
 	} else if (job_3rd_gc == 1) {
-		if (BaseLevel == 99) goto L_Mission;
+		if (BaseLevel > 98) goto L_Mission;
 		mes "[Ahcart]";
 		mes "If you become stronger and more skillful, then the assassin's guild will give you a special task.";
 		mes "Go for it.";
@@ -123,6 +131,12 @@ que_job01,75,96,3	script	Guild Member#3rdgc01	997,{
 		next;
 		switch(select("I'll do it.:I'm not ready.")) {
 		case 1:
+			if (VIP_SCRIPT) {
+				callfunc "VIP_Third_Class";
+				set job_3rd_gc, 3;
+				setquest 7101;
+				next;
+			}
 			mes "[Ahcart]";
 			mes "Ok, to Veins.";
 			mes "I'll contact them.";
@@ -3428,7 +3442,7 @@ OnTouch:
 OnTimer:
 	//FIXME: This is a workaround for...
 	//var pccount_tt = GetNeighborPcNumber 2
-	getmapxy(.@map$,.@x,.@y,1);
+	getmapxy(.@map$,.@x,.@y,UNITTYPE_NPC);
 	setarray .@x[1],.@x-2,.@x+2;
 	setarray .@y[1],.@y-2,.@y+2;
 	sleep 1000;
@@ -3833,12 +3847,11 @@ OnTouch:
 	end;
 }
 
-/*
 job3_guil02,1,3,0	script	#GMhelper01_gc	844,{
+	callfunc "F_GM_NPC";
 	mes "What can I do for you?";
 	next;
-	input .@input;
-	if (.@input == 1854) {
+	if (callfunc("F_GM_NPC",1854,0) == 1) {
 		set .@room01, $@3rdgc_room01;
 		mes "I check the recent situation.";
 		mes "The battle situation of storage: "+.@room01+"";
@@ -3867,16 +3880,17 @@ job3_guil02,1,3,0	script	#GMhelper01_gc	844,{
 			mes "A management for mansion is in mansion.";
 			close;
 		}
+	} else {
+		mes "-_-.";
+		close;
 	}
-	mes "-_-.";
-	close;
 }
 
 job3_guil03,1,8,0	script	#GMhelper02_gc	844,{
+	callfunc "F_GM_NPC";
 	mes "What can I do for you?";
 	next;
-	input .@input;
-	if (.@input == 1854) {
+	if (callfunc("F_GM_NPC",1854,0) == 1) {
 		set .@room02, $@3rdgc_room02;
 		mes "Check the recent situation.";
 		mes "The battle situation of the mansion is: "+.@room02+"";
@@ -3937,8 +3951,8 @@ job3_guil03,1,8,0	script	#GMhelper02_gc	844,{
 			mes "The management of storage is in a storage.";
 			close;
 		}
+	} else {
+		mes "-_-.";
+		close;
 	}
-	mes "-_-.";
-	close;
 }
-*/

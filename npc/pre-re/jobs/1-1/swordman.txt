@@ -5,7 +5,7 @@
 //===== Current Version: ===================================== 
 //= 2.3
 //===== Compatible With: ===================================== 
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= [Official Conversion]
 //= Job quest for Swordman classes
@@ -27,8 +27,8 @@
 //= 1.7 changed location from its clone to the original [Lupus]
 //= 1.7.1 Fixed warp on timeout [KarLaeda]
 //= 1.8 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//=	Removed "green" traps, quest is no longer timed.
-//=	No longer uses function "F_ToHigh"
+//=     Removed "green" traps, quest is no longer timed.
+//=     No longer uses function "F_ToHigh"
 //= 1.9 Dialog is official, but the Script is now custom as far as maps go. [L0ne_W0lf]
 //= 1.9b Fixed usage of wrong jobchange func messing up baby classes [ultramage]
 //= 2.0 Corrected NPC names to fall within proper resctrictions. [L0ne_W0lf]
@@ -59,11 +59,11 @@ izlude_in,74,172,4	script	Swordman#swd_1	119,{
 			mes "[Swordman]";
 			mes "Excellent! Let me promote you to a Swordman right away!";
 			next;
-			skill 143,0,0;
+			skill "NV_TRICKDEAD",0,SKILL_PERM;
 			jobchange Job_Swordman_High;
-			skill 144,1,0;
-			skill 145,1,0;
-			skill 146,1,0;
+			skill "SM_MOVINGRECOVERY",1,SKILL_PERM;
+			skill "SM_FATALBLOW",1,SKILL_PERM;
+			skill "SM_AUTOBERSERK",1,SKILL_PERM;
 			mes "[Swordman]";
 			mes "Hmm... You look like a well-experienced Swordman. Still, I'm sure that you must train to improve your skills and gain strength!";
 			close;

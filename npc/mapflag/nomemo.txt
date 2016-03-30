@@ -5,7 +5,7 @@
 //===== Current Version: =====================================
 //= 2.0
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= Prevents players from using /memo on a map.
 //= Also disables marriage warp skills.
@@ -228,6 +228,7 @@ monk_in	mapflag	nomemo
 in_rogue	mapflag	nomemo
 job_sage	mapflag	nomemo
 job_soul	mapflag	nomemo
+que_ba	mapflag	nomemo
 que_ng	mapflag	nomemo
 
 // Special Quests Places =====

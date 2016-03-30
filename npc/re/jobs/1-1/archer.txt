@@ -5,7 +5,7 @@
 //===== Current Version: ===================================== 
 //= 1.1
 //===== Compatible With: ===================================== 
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= Job Change to Archer Class
 //===== Additional Comments: ================================= 
@@ -39,10 +39,10 @@ payon_in02,64,71,4	script	Archer Guildsman#archer	85,{
 			mes "need to say anything else.";
 			mes "I know you'll make a great Archer...";
 			next;
-			skill 143,0,0;
+			skill "NV_TRICKDEAD",0,SKILL_PERM;
 			jobchange Job_Archer_high;
-			skill 147,1,0;
-			skill 148,1,0;
+			skill "AC_MAKINGARROW",1,SKILL_PERM;
+			skill "AC_CHARGEARROW",1,SKILL_PERM;
 			mes "[Archer Guildsman]";
 			mes "Although there's no special";
 			mes "reward for you this time, I hope you understand. Take care of yourself.";

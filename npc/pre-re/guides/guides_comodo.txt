@@ -5,16 +5,17 @@
 //===== Current Version: =====================================
 //= 1.5
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: =========================================
 //= [Official Conversion]
 //= Guides for the City of Comodo
 //===== Additional Comments: =================================
-//= Fully working v1.1 Now using duplicate command.
+//= Fully working
+//= 1.1 Now using duplicate command.
 //= 1.2 Optimized, updated common guide names [Lupus]
 //= 1.3 Updated the guide according to how it is on iRO, thanks
-//=	to Muad_Dib [MasterOfMuppets]
-//= 1.4	Removed 3 guides, and converted to use functions.
+//=     to Muad_Dib [MasterOfMuppets]
+//= 1.4 Removed 3 guides, and converted to use functions.
 //= 1.5 Rescripted to official 10.3 standards. [L0ne_W0lf]
 //============================================================
 
@@ -79,7 +80,7 @@ function	script	F_CmdGuide	{
 		mes "Please refer to the cross mark,";
 		mes "^3355FF+^000000, on your Mini-Map to find the";
 		mes "Tourist Shop where you can ";
-		mes "buy gifts that can only be found^FFFFFF ^000000 in the Comodo region~";
+		mes "buy gifts that can only be found in the Comodo region~";
 		close;
 	case 6:
 		viewpoint 1,136,202,5,0xFF5555;
@@ -87,7 +88,7 @@ function	script	F_CmdGuide	{
 		mes "^FF5555+^000000, on your Mini-Map to find the";
 		mes "Western branch of the Kafra";
 		mes "Corporation. They offer some";
-		mes "pretty important services that^FFFFFF ^000000 you may want to check out later.";
+		mes "pretty important services that you may want to check out later.";
 		close;
 	case 7:
 		viewpoint 1,114,294,5,0xFF5555;

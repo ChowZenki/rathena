@@ -5,7 +5,7 @@
 //===== Current Version: =====================================
 //= 1.9
 //===== Compatible With: =====================================
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= Characters logging out on the specified map will be warped
 //= to the map specified in the last field, or "SavePoint".
@@ -31,7 +31,6 @@ job_cru	mapflag	nosave	SavePoint
 job_duncer	mapflag	nosave	SavePoint
 job_monk	mapflag	nosave	SavePoint
 monk_test	mapflag	nosave	SavePoint
-monk_in	mapflag	nosave	SavePoint
 in_rogue	mapflag	nosave	SavePoint
 job_sage	mapflag	nosave	SavePoint
 // Ext
@@ -41,6 +40,7 @@ job_soul	mapflag	nosave	SavePoint
 // Special Quests Places =====
 ama_test	mapflag	nosave	SavePoint
 gef_dun03	mapflag	nosave	SavePoint
+que_ba	mapflag	nosave	SavePoint
 que_god01	mapflag	nosave	SavePoint
 que_god02	mapflag	nosave	SavePoint
 que_sign01	mapflag	nosave	SavePoint

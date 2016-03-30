@@ -2,8 +2,8 @@
 //= Mapflag List
 //===== By: ==================================================
 //= rAthena Dev Team
-//===== Current Version: =====================================
-//= 20130706
+//===== Last Updated: ========================================
+//= 20130830
 //===== Description: =========================================
 //= List of available mapflags and their functions.
 //============================================================
@@ -280,6 +280,34 @@ inviting, expelling, breaking, and changing leaders.
 Notes:
 'partylock' will still allow party options to be changed.
 'guildlock' will also block changes to guild alliances.
+
+---------------------------------------
+
+*skill_damage	{<skill_name>,<caster>,<damage1>,{<damage2>,{<damage3>,{<damage4>}}}}
+
+Enables skill damage adjustment on a map. All adjustments in 'db/skill_damage_db.txt'
+for 'Map' type 16 will be applied.
+
+This mapflag can also be used to adjust the damage of one skill by a percentage:
+ - skill_name:
+	Name of the skill in 'db/(pre-)re/skill_db.txt' (ex. SM_BASH).
+	To adjust all skill damage, write "all" (without quotes).
+ - caster: the groups for which the adjustment takes effect. (bitmask)
+	 1 = Player
+	 2 = Monster
+	 4 = Pet
+	 8 = Homunculus
+	16 = Mercenary
+	32 = Elemental
+ - damage: percent adjustment rate (between -100 and 100000).
+	1 = against player
+	2 = against normal monster
+	3 = against boss monster
+	4 = against other (homunculus, mercenary, pet, elemental)
+
+Notes:
+ - You MUST enable ADJUST_SKILL_DAMAGE in 'src/config/core.h' for this mapflag to take effect.
+ - Each map can contain up to 5 adjustments (MAX_MAP_SKILL_MODIFIER in 'src/map/map.h').
 
 ---------------------------------------
 

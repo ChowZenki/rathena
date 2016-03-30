@@ -5,7 +5,7 @@
 //===== Current Version: ===================================== 
 //= 1.9
 //===== Compatible With: ===================================== 
-//= rAthena SVN
+//= rAthena Project
 //===== Description: ========================================= 
 //= [Official Conversion]
 //= Job quest for Archer classes
@@ -17,8 +17,8 @@
 //= 1.5 Now saves/restores all quest skills [Lupus]
 //= 1.6 Merged back JFunc [Lupus]
 //= 1.7 Rescripted to Aegis 10.3 stadards. [L0ne_W0lf]
-//=	Arrow reward is now equal to the type sof trunks brought.
-//=	No longer uses function "F_ToHigh"
+//=     Arrow reward is now equal to the type sof trunks brought.
+//=     No longer uses function "F_ToHigh"
 //= 1.7a Fixed minor dialogue bug at Grade==25 [Lupus]
 //= 1.8 Fixed mistake in condition check. [L0ne_W0lf]
 //= 1.9 Added Quest Log commands. [L0ne_W0lf]
@@ -51,10 +51,10 @@ payon_in02,64,71,4	script	Archer Guildsman#archer	85,{
 			mes "need to say anything else.";
 			mes "I know you'll make a great Archer...";
 			next;
-			skill 143,0,0;
+			skill "NV_TRICKDEAD",0,SKILL_PERM;
 			jobchange Job_Archer_high;
-			skill 147,1,0;
-			skill 148,1,0;
+			skill "AC_MAKINGARROW",1,SKILL_PERM;
+			skill "AC_CHARGEARROW",1,SKILL_PERM;
 			mes "[Archer Guildsman]";
 			mes "Although there's no special";
 			mes "reward for you this time, I hope you understand. Take care of yourself.";
